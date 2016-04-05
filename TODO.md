@@ -7,7 +7,8 @@
     by 2 so that there's a border of blank spaces around all of letters
 - This would allow size of board to be fairly modular
   - for all x and y of board, check for words at each surrounding, when a letter/word is used remove it from the list of usable
-  - For this we need to make a "usable letters" list of coordinates
+  - For this we need to make a "usable letters" list of coordinates, this would be a state variable
+    that we make a copy of during each run
   - You would have to check if coordinate has been used when checking it 
 - Do we check all words in the Linux system dictionary?
 - How do we check how "rare" a word is?
