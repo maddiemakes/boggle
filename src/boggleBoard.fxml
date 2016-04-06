@@ -38,7 +38,7 @@
                <effect>
                   <ImageInput>
                      <source>
-                        <Image url="file:/C:/Users/Jordan/Documents/GitHub/boggle/src/wood.jpg" />
+                        <Image url="file:src/wood.jpg" />
                      </source>
                   </ImageInput>
                </effect>
