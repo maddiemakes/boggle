@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoggleBoardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoggleBoardController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -34,7 +34,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle arcHeight="5.0" fill="DODGERBLUE" height="480.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="550.0">
+            <Rectangle arcHeight="5.0" fill="DODGERBLUE" height="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="550.0">
                <effect>
                   <ImageInput>
                      <source>
@@ -43,7 +43,7 @@
                   </ImageInput>
                </effect>
             </Rectangle>
-            <GridPane alignment="CENTER" layoutX="75.0" layoutY="40.0">
+            <GridPane fx:id="gridPane" alignment="CENTER" layoutX="75.0" layoutY="40.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
@@ -57,7 +57,7 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP">
+                  <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -68,7 +68,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1">
+                  <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -79,7 +79,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -90,7 +90,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -101,7 +101,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.rowIndex="1">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.rowIndex="1">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -112,7 +112,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="12.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="12.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -123,7 +123,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="12.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="12.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -134,7 +134,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -145,7 +145,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.rowIndex="2">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.rowIndex="2">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -156,7 +156,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -167,7 +167,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -178,7 +178,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="210.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="210.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -189,7 +189,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="210.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.rowIndex="3">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="210.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.rowIndex="3">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -200,7 +200,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="210.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="210.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -211,7 +211,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -222,7 +222,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,0.8);" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleOnMouseClicked" onMouseEntered="#handleOnMouseEnter" onMouseExited="#handleOnMouseExit" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;" text="A" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="3">
                      <font>
                         <Font name="Calibri" size="60.0" />
                      </font>
@@ -235,6 +235,9 @@
                   </Label>
                </children>
             </GridPane>
+            <Button layoutX="460.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleSaveWord" text="Save word" />
+            <Button layoutX="380.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleClearWord" text="Clear word" />
+            <Button layoutX="300.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleNewGame" text="New Game" />
          </children>
       </AnchorPane>
    </center>
