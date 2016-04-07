@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoggleBoardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoggleBoardController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -238,6 +238,14 @@
             <Button layoutX="460.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleSaveWord" text="Save word" />
             <Button layoutX="380.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleClearWord" text="Clear word" />
             <Button layoutX="300.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleNewGame" text="New Game" />
+            <Label fx:id="pointsLabel" layoutX="495.0" layoutY="6.0" text="Points:&#10;" textAlignment="RIGHT" textFill="#f8f8f8e5">
+               <font>
+                  <Font name="Lucida Sans Regular" size="25.0" />
+               </font>
+               <effect>
+                  <DropShadow height="18.0" radius="8.5" spread="0.23" width="18.0" />
+               </effect>
+            </Label>
          </children>
       </AnchorPane>
    </center>

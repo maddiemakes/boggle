@@ -13,6 +13,7 @@ public class BoggleBoardController {
 
     Integer colIndex;
     Integer rowIndex;
+    Integer points = 0;
     Integer[][] availableLetters = new Integer[4][4];
     List<Node> clickedLetters = new ArrayList<>();
     Pair<Integer, Integer> lastClicked = new Pair<>(null, null);
@@ -33,6 +34,9 @@ public class BoggleBoardController {
 
     @FXML
     private GridPane gridPane;
+
+    @FXML
+    private Label pointsLabel;
 
 
     private void mouseEvent(MouseEvent e, Node source) {
@@ -121,15 +125,39 @@ public class BoggleBoardController {
     }
 
     //save word button
-    //TODO
-    //points
     @FXML
     void handleSaveWord(ActionEvent event) {
+        String word = "";
         for (Node node: clickedLetters) {
             Label label = (Label)node;
-            System.out.print(label.getText());
+            word += label.getText();
         }
-        System.out.println("");
+        //TODO
+        //make words only work if they're in the dictionary
+        System.out.println(word);
+        switch(word.length()) {
+            case 0:
+                break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                points += 1;
+                break;
+            case 5:
+                points += 2;
+                break;
+            case 6:
+                points += 3;
+                break;
+            case 7:
+                points += 5;
+                break;
+            default:
+                points += 11;
+                break;
+        }
+        pointsLabel.setText("Points:\n" + points);
         handleClearWord(event);
     }
 
@@ -151,6 +179,8 @@ public class BoggleBoardController {
                 availableLetters[k][j] = 1;
             }
         }
+        points = 0;
+        pointsLabel.setText("Points:\n" + points);
 
         //this prevents duplicate die numbers
         //list1 is a list of die numbers

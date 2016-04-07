@@ -7,4 +7,4 @@
 - [x] New game button
 - [x] Can only click appropriate letters
 - [ ] Dictionary
-- [ ] Points
+- [x] Points
