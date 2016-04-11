@@ -3,9 +3,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -25,7 +30,10 @@ public class BoggleBoardController {
         add("EIOSST"); add("ELRTTY"); add("HIMNUQ");
         add("HLNNRZ");
     }};
-
+    ArrayList<String> dict = new ArrayList<>();
+    String dictFileName = "dictionaries/bogwords.txt";
+    URL url = getClass().getResource("dictionaries/bogwords.txt");
+    File dictFile = new File(url.getPath());
     @FXML
     private ResourceBundle resources;
 
@@ -209,6 +217,17 @@ public class BoggleBoardController {
             }
             k++;
         }
+
+        try(BufferedReader br = new BufferedReader(new FileReader(dictFile)))
+        {
+            for(String line; (line = br.readLine()) != null; )
+            {
+                dict.add(line);
+                //System.out.println(line);
+            }
+        }
+        catch (IOException ex){}
+        System.out.println(dict);
     }
 
     @FXML
