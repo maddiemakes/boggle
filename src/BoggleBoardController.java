@@ -229,6 +229,15 @@ public class BoggleBoardController {
             k++;
         }
 
+        //this sets our dictionary
+        //TODO
+        //   Since "initialize" is called other times (ex. new game) maybe we move this to something else
+        //   This could be useful for setting a new dictionary
+        // OR
+        //   put a boolean for "has been run before"
+
+        //TODO
+        //POSSIBLE ERROR: when new game, is the entire dictionary added to this array list again??
         try(BufferedReader br = new BufferedReader(new FileReader(dictFile)))
         {
             for(String line; (line = br.readLine()) != null; )
