@@ -229,6 +229,8 @@ public class BoggleBoardController {
             k++;
         }
 
+        usedWords.clear();
+
         //this sets our dictionary
         //TODO
         //   Since "initialize" is called other times (ex. new game) maybe we move this to something else
