@@ -10,5 +10,5 @@
 - [x] Points
 - [ ] Choose dictionary from menu
 - [x] Check if word is real (in dictionary)
-- [ ] Words can't be chosen over and over (infinite points)
+- [x] Words can't be chosen over and over (infinite points)
 - [ ] 5x5
