@@ -30,6 +30,7 @@ public class BoggleBoardController {
         add("EIOSST"); add("ELRTTY"); add("HIMNUQ");
         add("HLNNRZ");
     }};
+    ArrayList<String> usedWords = new ArrayList<>();
     ArrayList<String> dict = new ArrayList<>();
     URL url = getClass().getResource("dictionaries/bogwords.txt");
     File dictFile = new File(url.getPath());
@@ -142,29 +143,38 @@ public class BoggleBoardController {
         //TODO
         //make words only work if they're in the dictionary
         System.out.println(word);
+        boolean wordFound = false;
         for (String line: dict) {
             if (word.equalsIgnoreCase(line)) {
-                switch(word.length()) {
-                    case 0:
-                        break;
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        points += 1;
-                        break;
-                    case 5:
-                        points += 2;
-                        break;
-                    case 6:
-                        points += 3;
-                        break;
-                    case 7:
-                        points += 5;
-                        break;
-                    default:
-                        points += 11;
-                        break;
+                for (String newWord: usedWords) {
+                    if (word.equalsIgnoreCase(newWord)) {
+                        wordFound = true;
+                    }
+                }
+                if (!wordFound) {
+                    switch (word.length()) {
+                        case 0:
+                            break;
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                            points += 1;
+                            break;
+                        case 5:
+                            points += 2;
+                            break;
+                        case 6:
+                            points += 3;
+                            break;
+                        case 7:
+                            points += 5;
+                            break;
+                        default:
+                            points += 11;
+                            break;
+                    }
+                    usedWords.add(word);
                 }
             }
         }
