@@ -31,7 +31,6 @@ public class BoggleBoardController {
         add("HLNNRZ");
     }};
     ArrayList<String> dict = new ArrayList<>();
-    String dictFileName = "dictionaries/bogwords.txt";
     URL url = getClass().getResource("dictionaries/bogwords.txt");
     File dictFile = new File(url.getPath());
     @FXML
@@ -143,27 +142,31 @@ public class BoggleBoardController {
         //TODO
         //make words only work if they're in the dictionary
         System.out.println(word);
-        switch(word.length()) {
-            case 0:
-                break;
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                points += 1;
-                break;
-            case 5:
-                points += 2;
-                break;
-            case 6:
-                points += 3;
-                break;
-            case 7:
-                points += 5;
-                break;
-            default:
-                points += 11;
-                break;
+        for (String line: dict) {
+            if (word.equalsIgnoreCase(line)) {
+                switch(word.length()) {
+                    case 0:
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        points += 1;
+                        break;
+                    case 5:
+                        points += 2;
+                        break;
+                    case 6:
+                        points += 3;
+                        break;
+                    case 7:
+                        points += 5;
+                        break;
+                    default:
+                        points += 11;
+                        break;
+                }
+            }
         }
         pointsLabel.setText("Points:\n" + points);
         handleClearWord(event);
@@ -227,7 +230,7 @@ public class BoggleBoardController {
             }
         }
         catch (IOException ex){}
-        System.out.println(dict);
+//        System.out.println(dict);
     }
 
     @FXML
