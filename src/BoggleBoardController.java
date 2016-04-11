@@ -140,8 +140,6 @@ public class BoggleBoardController {
             Label label = (Label)node;
             word += label.getText();
         }
-        //TODO
-        //make words only work if they're in the dictionary
         System.out.println(word);
         boolean wordFound = false;
         for (String line: dict) {
