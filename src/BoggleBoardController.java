@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
 
@@ -23,11 +24,21 @@ public class BoggleBoardController {
     List<Node> clickedLetters = new ArrayList<>();
     Pair<Integer, Integer> lastClicked = new Pair<>(null, null);
     List<String> dice = new ArrayList<String>(16) {{
-        add("AAEEGN"); add("ABBJOO"); add("ACHOPS");
-        add("AFFKPS"); add("AOOTTW"); add("CIMOTU");
-        add("DEILRX"); add("DELRVY"); add("DISTTY");
-        add("EEGHNW"); add("EEINSU"); add("EHRTVW");
-        add("EIOSST"); add("ELRTTY"); add("HIMNUQ");
+        add("AAEEGN");
+        add("ABBJOO");
+        add("ACHOPS");
+        add("AFFKPS");
+        add("AOOTTW");
+        add("CIMOTU");
+        add("DEILRX");
+        add("DELRVY");
+        add("DISTTY");
+        add("EEGHNW");
+        add("EEINSU");
+        add("EHRTVW");
+        add("EIOSST");
+        add("ELRTTY");
+        add("HIMNUQ");
         add("HLNNRZ");
     }};
     ArrayList<String> usedWords = new ArrayList<>();
@@ -50,10 +61,10 @@ public class BoggleBoardController {
     private void mouseEvent(MouseEvent e, Node source) {
         colIndex = GridPane.getColumnIndex(source);
         rowIndex = GridPane.getRowIndex(source);
-        if(colIndex == null) {
+        if (colIndex == null) {
             colIndex = 0;
         }
-        if(rowIndex == null) {
+        if (rowIndex == null) {
             rowIndex = 0;
         }
     }
@@ -64,15 +75,14 @@ public class BoggleBoardController {
                 if (!(rowIndex == lastClicked.getKey()
                         && colIndex == lastClicked.getValue())
                         && (((rowIndex == (lastClicked.getKey() - 1))
-                            || (rowIndex == lastClicked.getKey())
-                            || (rowIndex == (lastClicked.getKey() + 1)))
-                          && ((colIndex == (lastClicked.getValue() - 1))
-                              || (colIndex == lastClicked.getValue())
-                              || (colIndex == (lastClicked.getValue() + 1))))) {
+                        || (rowIndex == lastClicked.getKey())
+                        || (rowIndex == (lastClicked.getKey() + 1)))
+                        && ((colIndex == (lastClicked.getValue() - 1))
+                        || (colIndex == lastClicked.getValue())
+                        || (colIndex == (lastClicked.getValue() + 1))))) {
                     return true;
                 }
-            }
-            else {
+            } else {
                 return true;
             }
         }
@@ -81,7 +91,7 @@ public class BoggleBoardController {
 
     @FXML
     void handleOnMouseClicked(MouseEvent event) {
-        Node source = (Node)event.getSource();
+        Node source = (Node) event.getSource();
         mouseEvent(event, source);
         if (isValidLetter(event, source)) {
             clickedLetters.add(source);
@@ -97,9 +107,8 @@ public class BoggleBoardController {
         mouseEvent(event, source);
         if (isValidLetter(event, source)) {
             source.setStyle("-fx-background-color:rgba(90,255,110,1); -fx-opacity:0.8;");
-        }
-        else {
-            for (Node node: clickedLetters) {
+        } else {
+            for (Node node : clickedLetters) {
                 if (source == node) {
                     return;
                 }
@@ -120,14 +129,14 @@ public class BoggleBoardController {
 
     @FXML
     void handleClearWord(ActionEvent event) {
-        for(int k = 0; k < 4; k++) {
-            for(int j = 0; j < 4; j++) {
+        for (int k = 0; k < 4; k++) {
+            for (int j = 0; j < 4; j++) {
                 availableLetters[k][j] = 1;
             }
         }
         clickedLetters.clear();
         lastClicked = new Pair<>(null, null);
-        for (Node node: gridPane.getChildren()) {
+        for (Node node : gridPane.getChildren()) {
             node.setStyle("-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;");
         }
     }
@@ -136,15 +145,15 @@ public class BoggleBoardController {
     @FXML
     void handleSaveWord(ActionEvent event) {
         String word = "";
-        for (Node node: clickedLetters) {
-            Label label = (Label)node;
+        for (Node node : clickedLetters) {
+            Label label = (Label) node;
             word += label.getText();
         }
         System.out.println(word);
         boolean wordFound = false;
-        for (String line: dict) {
+        for (String line : dict) {
             if (word.equalsIgnoreCase(line)) {
-                for (String newWord: usedWords) {
+                for (String newWord : usedWords) {
                     if (word.equalsIgnoreCase(newWord)) {
                         wordFound = true;
                     }
@@ -193,8 +202,8 @@ public class BoggleBoardController {
     @FXML
     void initialize() {
         Random rand = new Random();
-        for(int k = 0; k < 4; k++) {
-            for(int j = 0; j < 4; j++) {
+        for (int k = 0; k < 4; k++) {
+            for (int j = 0; j < 4; j++) {
                 availableLetters[k][j] = 1;
             }
         }
@@ -204,11 +213,23 @@ public class BoggleBoardController {
         //this prevents duplicate die numbers
         //list1 is a list of die numbers
         //list2 is the list of which die each grid cell will be
-        List<Integer> list1 = new ArrayList<Integer>(){{
-            add(0); add(1); add(2); add(3);
-            add(4); add(5); add(6); add(7);
-            add(8); add(9); add(10); add(11);
-            add(12); add(13); add(14); add(15);
+        List<Integer> list1 = new ArrayList<Integer>() {{
+            add(0);
+            add(1);
+            add(2);
+            add(3);
+            add(4);
+            add(5);
+            add(6);
+            add(7);
+            add(8);
+            add(9);
+            add(10);
+            add(11);
+            add(12);
+            add(13);
+            add(14);
+            add(15);
         }};
         List<Integer> list2 = new ArrayList<>();
         for (int k = 16; k > 0; k--) {
@@ -220,8 +241,8 @@ public class BoggleBoardController {
         //Jumble
         //this shakes the box to jumble the letters
         int k = 0;
-        for (Node node: gridPane.getChildren()) {
-            Label label = (Label)node;
+        for (Node node : gridPane.getChildren()) {
+            Label label = (Label) node;
             label.setText("" + (dice.get(list2.get(k))).charAt(rand.nextInt(6)));
             if (label.getText().equals("Q")) {
                 label.setText("Qu");
@@ -240,20 +261,23 @@ public class BoggleBoardController {
 
         //TODO
         //POSSIBLE ERROR: when new game, is the entire dictionary added to this array list again??
-        try(BufferedReader br = new BufferedReader(new FileReader(dictFile)))
-        {
-            for(String line; (line = br.readLine()) != null; )
-            {
+        try (BufferedReader br = new BufferedReader(new FileReader(dictFile))) {
+            for (String line; (line = br.readLine()) != null; ) {
                 dict.add(line);
                 //System.out.println(line);
             }
+        } catch (IOException ex) {
         }
-        catch (IOException ex){}
 //        System.out.println(dict);
     }
 
     @FXML
     private void handleClose(ActionEvent event) {
         System.exit(0);
+    }
+
+    public void changeDictionary() {
+        FileChooser fc = new FileChooser();
+        dictFile = fc.showOpenDialog(null);
     }
 }
