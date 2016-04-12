@@ -3,6 +3,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
@@ -34,6 +37,8 @@ public class BoggleBoardController {
     ArrayList<String> dict = new ArrayList<>();
     URL url = getClass().getResource("dictionaries/bogwords.txt");
     File dictFile = new File(url.getPath());
+    boolean newDict = true;
+
     @FXML
     private ResourceBundle resources;
 
@@ -45,6 +50,9 @@ public class BoggleBoardController {
 
     @FXML
     private Label pointsLabel;
+
+    @FXML
+    private VBox wordHistoryVBox;
 
 
     private void mouseEvent(MouseEvent e, Node source) {
@@ -150,6 +158,19 @@ public class BoggleBoardController {
                     }
                 }
                 if (!wordFound) {
+                    HBox wordHistory = new HBox();
+                    wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
+                    wordHistory.setPrefSize(194,20);
+                    wordHistory.setMaxSize(Region.USE_PREF_SIZE,Region.USE_COMPUTED_SIZE);
+                    Label wordLabel = new Label(word);
+                    wordLabel.setTranslateX(5);
+                    wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
+                    wordLabel.setPrefSize(155,20);
+                    wordLabel.setMaxSize(155,Region.USE_COMPUTED_SIZE);
+                    Label wordPointsLabel = new Label();
+                    wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
+                    wordPointsLabel.setPrefSize(32,20);
+                    wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
                     switch (word.length()) {
                         case 0:
                             break;
@@ -158,25 +179,32 @@ public class BoggleBoardController {
                         case 3:
                         case 4:
                             points += 1;
+                            wordPointsLabel.setText("+1");
                             break;
                         case 5:
                             points += 2;
+                            wordPointsLabel.setText("+2");
                             break;
                         case 6:
                             points += 3;
+                            wordPointsLabel.setText("+3");
                             break;
                         case 7:
                             points += 5;
+                            wordPointsLabel.setText("+5");
                             break;
                         default:
                             points += 11;
+                            wordPointsLabel.setText("+11");
                             break;
                     }
                     usedWords.add(word);
+                    wordHistory.getChildren().addAll(wordLabel,wordPointsLabel);
+                    wordHistoryVBox.getChildren().add(0, wordHistory);
                 }
             }
         }
-        pointsLabel.setText("Points:\n" + points);
+        pointsLabel.setText("Points: " + points);
         handleClearWord(event);
     }
 
@@ -184,6 +212,17 @@ public class BoggleBoardController {
     void handleNewGame(ActionEvent event) {
         initialize();
         handleClearWord(event);
+        wordHistoryVBox.getChildren().clear();
+    }
+
+    void addToDict() {
+        try(BufferedReader br = new BufferedReader(new FileReader(dictFile))) {
+            for(String line; (line = br.readLine()) != null; ) {
+                dict.add(line);
+            }
+        }
+        catch (IOException ex){}
+        newDict = false;
     }
 
 
@@ -199,11 +238,13 @@ public class BoggleBoardController {
             }
         }
         points = 0;
-        pointsLabel.setText("Points:\n" + points);
+        pointsLabel.setText("Points: " + points);
 
         //this prevents duplicate die numbers
         //list1 is a list of die numbers
         //list2 is the list of which die each grid cell will be
+        //TODO
+        // Morrison said something about sets not allowing duplicates?
         List<Integer> list1 = new ArrayList<Integer>(){{
             add(0); add(1); add(2); add(3);
             add(4); add(5); add(6); add(7);
@@ -230,26 +271,10 @@ public class BoggleBoardController {
         }
 
         usedWords.clear();
-
-        //this sets our dictionary
-        //TODO
-        //   Since "initialize" is called other times (ex. new game) maybe we move this to something else
-        //   This could be useful for setting a new dictionary
-        // OR
-        //   put a boolean for "has been run before"
-
-        //TODO
-        //POSSIBLE ERROR: when new game, is the entire dictionary added to this array list again??
-        try(BufferedReader br = new BufferedReader(new FileReader(dictFile)))
-        {
-            for(String line; (line = br.readLine()) != null; )
-            {
-                dict.add(line);
-                //System.out.println(line);
-            }
+        if(newDict) {
+            dict.clear();
+            addToDict();
         }
-        catch (IOException ex){}
-//        System.out.println(dict);
     }
 
     @FXML
