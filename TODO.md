@@ -8,14 +8,15 @@
 - [x] Can only click appropriate letters
 - [x] Dictionary
 - [x] Points
-- [ ] Choose dictionary from menu
+- [x] Choose dictionary from menu
 - [x] Check if word is real (in dictionary)
 - [x] Words can't be chosen over and over (infinite points)
-- [ ] Shows list of words that player has already used (so you know not to try things again)
+- [x] Shows list of words that player has already used (so you know not to try things again)
 - [ ] AI knows all possible words for the board
 - [ ] Game ends when all possible words have been chosen
 - [ ] Alert messages for "you win!" "not a real word"
     - [ ] If word isn't real, turn all letters red for a second or two
+- [ ] Alert message for starting new game
 - [ ] Clean up buttons/visuals
 - [ ] Themes
 - [ ] 5x5

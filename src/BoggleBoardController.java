@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
@@ -53,6 +55,9 @@ public class BoggleBoardController {
     private Label pointsLabel;
 
     @FXML
+    private Label notificationLabel;
+
+    @FXML
     private VBox wordHistoryVBox;
 
 
@@ -87,6 +92,13 @@ public class BoggleBoardController {
         }
         return false;
     }
+
+    //TODO
+    //AI
+    //  - Makes all possible guesses? (most likely will do this)
+    //  - Tries all words in dictionary?
+    //
+    //First get it to print all possible combinations, then check them for valid words
 
     @FXML
     void handleOnMouseClicked(MouseEvent event) {
@@ -124,7 +136,6 @@ public class BoggleBoardController {
         if (availableLetters[rowIndex][colIndex] == 1) {
             source.setStyle("-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;");
         }
-
     }
 
     @FXML
@@ -202,6 +213,14 @@ public class BoggleBoardController {
                     usedWords.add(word);
                     wordHistory.getChildren().addAll(wordLabel,wordPointsLabel);
                     wordHistoryVBox.getChildren().add(0, wordHistory);
+                    //TODO
+                    //notify player when they get points, use a word twice, or try something that isn't a word
+
+//                    notificationLabel.setText(wordPointsLabel.getText());
+//                    Boggle.notification.getContent().addAll(notificationLabel);
+//                    Boggle.notification.centerOnScreen();
+//                    notification.setAutoHide(true);
+//                    notificationLabel.setVisible(true);
                 }
             }
         }
@@ -211,6 +230,8 @@ public class BoggleBoardController {
 
     @FXML
     void handleNewGame(ActionEvent event) {
+        //TODO
+        //alert user this will start new game
         initialize();
         handleClearWord(event);
         wordHistoryVBox.getChildren().clear();
@@ -288,6 +309,8 @@ public class BoggleBoardController {
         FileChooser fc = new FileChooser();
         dictFile = fc.showOpenDialog(null);
         newDict = true;
+        //TODO
+        //alert user that this will start a new game.
         handleNewGame(event);
     }
 }

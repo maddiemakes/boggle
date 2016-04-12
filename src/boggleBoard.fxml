@@ -261,6 +261,11 @@
                   <Insets />
                </opaqueInsets>
             </ScrollPane>
+            <Label fx:id="notificationLabel" alignment="CENTER" focusTraversable="false" layoutX="240.0" layoutY="200.0" text="+4" textAlignment="CENTER" visible="false">
+               <font>
+                  <Font size="56.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </center>
