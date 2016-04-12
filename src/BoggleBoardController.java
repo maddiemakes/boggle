@@ -283,8 +283,11 @@ public class BoggleBoardController {
         System.exit(0);
     }
 
-    public void changeDictionary() {
+    @FXML
+    public void handleChangeDictionary(ActionEvent event) {
         FileChooser fc = new FileChooser();
         dictFile = fc.showOpenDialog(null);
+        newDict = true;
+        handleNewGame(event);
     }
 }
