@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
 
@@ -280,5 +281,10 @@ public class BoggleBoardController {
     @FXML
     private void handleClose(ActionEvent event) {
         System.exit(0);
+    }
+
+    public void changeDictionary() {
+        FileChooser fc = new FileChooser();
+        dictFile = fc.showOpenDialog(null);
     }
 }
