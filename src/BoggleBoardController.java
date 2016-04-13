@@ -72,11 +72,6 @@ public class BoggleBoardController {
     private VBox wordHistoryVBox;
 
 
-    //TODO
-    //Function checks word against dictionary
-    //Function that checks for all surrounding letters
-    //    - this is recursed with new letters
-
     void findWordsUtil(String[][] board, boolean[][] visited, int i, int j, String newWord) {
         visited[i][j] = true;
         newWord = newWord + board[i][j];
@@ -88,6 +83,7 @@ public class BoggleBoardController {
             }
         }
 
+        //checks all surrounding letters
         for (int row = i-1; row<=i+1 && row<4; row++) {
             for (int col = j-1; col<=j+1 && col<4; col++) {
                 if (row>=0 && col>=0 && !visited[row][col]) {
@@ -114,13 +110,14 @@ public class BoggleBoardController {
     @FXML
     void handleAI(ActionEvent event) {
         //this is just the button, it will run the AI function initially
+//        String[][] boggleBoard = new String[4][4];
         String[][] boggleBoard = {{"T","A","S","O"},
                                   {"C","O","E","I"},
                                   {"Y","W","U","X"},
                                   {"U","T","H","V"}};
+        /*
         int i = 0;
         int j = 0;
-        /*
         for (Node node: gridPane.getChildren()) {
             Label letter = (Label)node;
             boggleBoard[i][j] = letter.getText();

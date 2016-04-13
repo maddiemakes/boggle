@@ -12,7 +12,10 @@
 - [x] Check if word is real (in dictionary)
 - [x] Words can't be chosen over and over (infinite points)
 - [x] Shows list of words that player has already used (so you know not to try things again)
-- [ ] AI knows all possible words for the board
+- [x] AI knows all possible words for the board
+- [ ] AI only checks 3 letter words or more (optional) (this is a real boggle rule)
+- [ ] AI doesn't check down paths that aren't possible (trie)
+- [ ] AI checks dictionary words instead of letters (dynamic programming)
 - [ ] Game ends when all possible words have been chosen
 - [ ] Alert messages for "you win!" "not a real word"
     - [ ] If word isn't real, turn all letters red for a second or two
