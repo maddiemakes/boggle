@@ -64,7 +64,85 @@ public class BoggleBoardController {
     private VBox wordHistoryVBox;
 
 
+    //TODO
+    //Check if a path leads to nowhere (no words possible from here, ex. zxc)
+    // If so, move along.
+    //
+    //check through dictionary for AI's letter string at beginning of word
+    //if it's not found, skip that letter entirely (don't pursue the path)
+    //for (String line: dict) {
+    //    String testLine = line.substring(0, newWord.length());
+    //    if (newWord.equalsIgnoreCase(testLine)) {
+    //        isPossible = true;
+    //    }
+    //    if (!isPossible) {
+    //        TODO next word;
+    //    }
+    //}
+
     void findWordsUtil(String[][] board, boolean[][] visited, int i, int j, String newWord) {
+        boolean isPossible = false;
+        visited[i][j] = true;
+        newWord = newWord + board[i][j];
+
+        //if word is in dictionary, print it
+        for (String line: dict) {
+            if (newWord.equalsIgnoreCase(line)) {
+//                System.out.println("");
+//                System.out.print("AI: ");
+                switch (newWord.length()) {
+                    case 0:
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        System.out.print("[+1] ");
+                        break;
+                    case 5:
+                        System.out.print("[+2] ");
+                        break;
+                    case 6:
+                        System.out.print("[+3] ");
+                        break;
+                    case 7:
+                        System.out.print("[+5] ");
+                        break;
+                    default:
+                        System.out.print("[+11] ");
+                        break;
+                }
+                System.out.println(newWord);
+            }
+            else if (line.length() >= newWord.length()){
+                String testLine = line.substring(0, newWord.length());
+                if (newWord.equalsIgnoreCase(testLine)) {
+                    isPossible = true;
+                }
+            }
+        }
+
+        if (!isPossible) {
+//            System.out.print(newWord + ", ");
+            newWord = newWord.substring(0, newWord.length()-1);
+            visited[i][j] = false;
+            return;
+        }
+
+        //checks all surrounding letters
+        for (int row = i-1; row<=i+1 && row<4; row++) {
+            for (int col = j-1; col<=j+1 && col<4; col++) {
+                if (row>=0 && col>=0 && !visited[row][col]) {
+                    findWordsUtil(board, visited, row, col, newWord);
+                }
+            }
+        }
+
+        newWord = newWord.substring(0, newWord.length()-1);
+        visited[i][j] = false;
+    }
+
+    void findWordsUtilOriginal(String[][] board, boolean[][] visited, int i, int j, String newWord) {
         visited[i][j] = true;
         newWord = newWord + board[i][j];
 
@@ -125,12 +203,12 @@ public class BoggleBoardController {
     @FXML
     void handleAI(ActionEvent event) {
         //this is just the button, it will run the AI function initially
-//        String[][] boggleBoard = new String[4][4];
-        String[][] boggleBoard = {{"T","A","S","O"},
-                                  {"C","O","E","I"},
-                                  {"Y","W","U","X"},
-                                  {"U","T","H","V"}};
-        /*
+        String[][] boggleBoard = new String[4][4];
+//        String[][] boggleBoard = {{"T","A","S","O"},
+//                                  {"C","O","E","I"},
+//                                  {"Y","W","U","X"},
+//                                  {"U","T","H","V"}};
+//        /*
         int i = 0;
         int j = 0;
         for (Node node: gridPane.getChildren()) {
@@ -145,7 +223,7 @@ public class BoggleBoardController {
                 }
             }
         }
-        */
+//        */
         findWords(boggleBoard);
     }
 
