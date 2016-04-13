@@ -16,6 +16,9 @@
 - [ ] AI only checks 3 letter words or more (optional) (this is a real boggle rule)
 - [ ] AI doesn't check down paths that aren't possible (trie)
 - [ ] AI checks dictionary words instead of letters (dynamic programming)
+- [x] AI displays how many points each word is worth
+- [ ] AI shows maximum possible points
+- [ ] Player can check their stuff against the AI to see what words and how many points they missed
 - [ ] Game ends when all possible words have been chosen
 - [ ] Alert messages for "you win!" "not a real word"
     - [ ] If word isn't real, turn all letters red for a second or two

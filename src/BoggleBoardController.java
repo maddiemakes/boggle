@@ -79,6 +79,29 @@ public class BoggleBoardController {
         //if word is in dictionary, print it
         for (String line: dict) {
             if (newWord.equalsIgnoreCase(line)) {
+                System.out.print("AI: ");
+                switch (newWord.length()) {
+                    case 0:
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        System.out.print("[+1] ");
+                        break;
+                    case 5:
+                        System.out.print("[+2] ");
+                        break;
+                    case 6:
+                        System.out.print("[+3] ");
+                        break;
+                    case 7:
+                        System.out.print("[+5] ");
+                        break;
+                    default:
+                        System.out.print("[+11] ");
+                        break;
+                }
                 System.out.println(newWord);
             }
         }
@@ -145,6 +168,7 @@ public class BoggleBoardController {
     }
 
     private boolean isValidLetter() {
+        //is it possible to clean this up any more?
         if (availableLetters[rowIndex][colIndex] == 1) {
             if (lastClicked.getKey() != null && lastClicked.getValue() != null) {
                 if (!(rowIndex == lastClicked.getKey()
