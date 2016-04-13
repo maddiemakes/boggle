@@ -204,6 +204,7 @@ public class BoggleBoardController {
                 findWordsUtil(board, visited, i, j, newWord);
             }
         }
+        maxPoints += points;
         System.out.println("Maximum possible points: " + maxPoints);
     }
 
@@ -230,7 +231,6 @@ public class BoggleBoardController {
                 }
             }
         }
-        AIusedWords.clear();
 //        */
         findWords(boggleBoard);
     }
@@ -475,6 +475,7 @@ public class BoggleBoardController {
         }
 
         usedWords.clear();
+        AIusedWords.clear();
         if(newDict) {
             dict.clear();
             addToDict();
