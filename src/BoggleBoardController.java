@@ -44,14 +44,6 @@ public class BoggleBoardController {
     File dictFile = new File(url.getPath());
     boolean newDict = true;
 
-    //AI state variables (testing)
-    Integer AIcolIndex;
-    Integer AIrowIndex;
-    Integer[][] AIavailableLetters = new Integer[4][4];
-    List<Node> AIclickedLetters = new ArrayList<>();
-    Pair<Integer, Integer> AIlastClicked = new Pair<>(null, null);
-    ArrayList<String> AIusedWords = new ArrayList<>();
-    Integer AIletterCount = 0;
 
     @FXML
     private ResourceBundle resources;
@@ -361,11 +353,6 @@ public class BoggleBoardController {
         for(int k = 0; k < 4; k++) {
             for(int j = 0; j < 4; j++) {
                 availableLetters[k][j] = 1;
-
-                //TODO
-                //remove this
-                AIavailableLetters[k][j] = 1;
-
             }
         }
         points = 0;
