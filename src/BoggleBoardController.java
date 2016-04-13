@@ -44,6 +44,10 @@ public class BoggleBoardController {
     File dictFile = new File(url.getPath());
     boolean newDict = true;
 
+    //AI state variables
+    Integer maxPoints = 0;
+    ArrayList<String> AIusedWords = new ArrayList<>();
+
 
     @FXML
     private ResourceBundle resources;
@@ -65,20 +69,27 @@ public class BoggleBoardController {
 
 
     //TODO
-    //Check if a path leads to nowhere (no words possible from here, ex. zxc)
-    // If so, move along.
-    //
-    //check through dictionary for AI's letter string at beginning of word
-    //if it's not found, skip that letter entirely (don't pursue the path)
-    //for (String line: dict) {
-    //    String testLine = line.substring(0, newWord.length());
-    //    if (newWord.equalsIgnoreCase(testLine)) {
-    //        isPossible = true;
-    //    }
-    //    if (!isPossible) {
-    //        TODO next word;
-    //    }
-    //}
+    //"solve" compares your score and guesses to max
+    // - Add a line break for "your guesses end here"
+    // - run another function which adds a new HBox for new words, shows up red
+    // - "Max possible score:" possibly have this at the bottom (even in like an "update" box)
+/*
+    void compareGuesses() {
+        HBox wordHistory = new HBox();
+        wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
+        wordHistory.setPrefSize(194,20);
+        wordHistory.setMaxSize(Region.USE_PREF_SIZE,Region.USE_COMPUTED_SIZE);
+        Label wordLabel = new Label(word);
+        wordLabel.setTranslateX(5);
+        wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
+        wordLabel.setPrefSize(155,20);
+        wordLabel.setMaxSize(155,Region.USE_COMPUTED_SIZE);
+        Label wordPointsLabel = new Label();
+        wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
+        wordPointsLabel.setPrefSize(32,20);
+        wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
+    }
+    */
 
     void findWordsUtil(String[][] board, boolean[][] visited, int i, int j, String newWord) {
         boolean isPossible = false;
@@ -88,31 +99,72 @@ public class BoggleBoardController {
         //if word is in dictionary, print it
         for (String line: dict) {
             if (newWord.equalsIgnoreCase(line)) {
+                boolean wordFound = false;
+                for (String usedWord: AIusedWords) {
+                    if (newWord.equalsIgnoreCase(usedWord)) {
+                        wordFound = true;
+                    }
+                }
+                for (String usedWord: usedWords) {
+                    if (newWord.equalsIgnoreCase(usedWord)) {
+                        wordFound = true;
+                    }
+                }
+                if (!wordFound) {
 //                System.out.println("");
 //                System.out.print("AI: ");
-                switch (newWord.length()) {
-                    case 0:
-                        break;
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        System.out.print("[+1] ");
-                        break;
-                    case 5:
-                        System.out.print("[+2] ");
-                        break;
-                    case 6:
-                        System.out.print("[+3] ");
-                        break;
-                    case 7:
-                        System.out.print("[+5] ");
-                        break;
-                    default:
-                        System.out.print("[+11] ");
-                        break;
+                    HBox wordHistory = new HBox();
+                    wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
+                    wordHistory.setPrefSize(194,20);
+                    wordHistory.setMaxSize(Region.USE_PREF_SIZE,Region.USE_COMPUTED_SIZE);
+                    Label wordLabel = new Label(newWord);
+                    wordLabel.setTranslateX(5);
+                    wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
+                    wordLabel.setPrefSize(155,20);
+                    wordLabel.setMaxSize(155,Region.USE_COMPUTED_SIZE);
+                    wordLabel.setStyle("-fx-text-fill:rgb(255,0,0)");
+                    Label wordPointsLabel = new Label();
+                    wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
+                    wordPointsLabel.setPrefSize(32,20);
+                    wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
+                    wordPointsLabel.setStyle("-fx-text-fill:rgb(255,0,0)");
+                    switch (newWord.length()) {
+                        case 0:
+                            break;
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                            System.out.print("[+1] ");
+                            maxPoints++;
+                            wordPointsLabel.setText("+1");
+                            break;
+                        case 5:
+                            System.out.print("[+2] ");
+                            maxPoints += 2;
+                            wordPointsLabel.setText("+2");
+                            break;
+                        case 6:
+                            System.out.print("[+3] ");
+                            maxPoints += 3;
+                            wordPointsLabel.setText("+3");
+                            break;
+                        case 7:
+                            System.out.print("[+5] ");
+                            maxPoints += 5;
+                            wordPointsLabel.setText("+5");
+                            break;
+                        default:
+                            System.out.print("[+11] ");
+                            maxPoints += 11;
+                            wordPointsLabel.setText("+11");
+                            break;
+                    }
+                    AIusedWords.add(newWord);
+                    wordHistory.getChildren().addAll(wordLabel,wordPointsLabel);
+                    wordHistoryVBox.getChildren().add(0, wordHistory);
+                    System.out.println(newWord);
                 }
-                System.out.println(newWord);
             }
             else if (line.length() >= newWord.length()){
                 String testLine = line.substring(0, newWord.length());
@@ -138,53 +190,7 @@ public class BoggleBoardController {
             }
         }
 
-        newWord = newWord.substring(0, newWord.length()-1);
-        visited[i][j] = false;
-    }
-
-    void findWordsUtilOriginal(String[][] board, boolean[][] visited, int i, int j, String newWord) {
-        visited[i][j] = true;
-        newWord = newWord + board[i][j];
-
-        //if word is in dictionary, print it
-        for (String line: dict) {
-            if (newWord.equalsIgnoreCase(line)) {
-                System.out.print("AI: ");
-                switch (newWord.length()) {
-                    case 0:
-                        break;
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        System.out.print("[+1] ");
-                        break;
-                    case 5:
-                        System.out.print("[+2] ");
-                        break;
-                    case 6:
-                        System.out.print("[+3] ");
-                        break;
-                    case 7:
-                        System.out.print("[+5] ");
-                        break;
-                    default:
-                        System.out.print("[+11] ");
-                        break;
-                }
-                System.out.println(newWord);
-            }
-        }
-
-        //checks all surrounding letters
-        for (int row = i-1; row<=i+1 && row<4; row++) {
-            for (int col = j-1; col<=j+1 && col<4; col++) {
-                if (row>=0 && col>=0 && !visited[row][col]) {
-                    findWordsUtil(board, visited, row, col, newWord);
-                }
-            }
-        }
-
+        //Intellij says this isn't used, but it's used by the for loop in "findWords()"
         newWord = newWord.substring(0, newWord.length()-1);
         visited[i][j] = false;
     }
@@ -198,6 +204,7 @@ public class BoggleBoardController {
                 findWordsUtil(board, visited, i, j, newWord);
             }
         }
+        System.out.println("Maximum possible points: " + maxPoints);
     }
 
     @FXML
@@ -214,7 +221,7 @@ public class BoggleBoardController {
         for (Node node: gridPane.getChildren()) {
             Label letter = (Label)node;
             boggleBoard[i][j] = letter.getText();
-            if (i < 3) {
+            if (i < 4) {
                 if (j < 3) {
                     j++;
                 } else {
@@ -223,6 +230,7 @@ public class BoggleBoardController {
                 }
             }
         }
+        AIusedWords.clear();
 //        */
         findWords(boggleBoard);
     }

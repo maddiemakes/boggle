@@ -236,9 +236,9 @@
                   </Label>
                </children>
             </GridPane>
-            <Button layoutX="460.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleSaveWord" text="Save word" />
-            <Button layoutX="380.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleClearWord" text="Clear word" />
-            <Button layoutX="300.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleNewGame" text="New Game" />
+            <Button layoutX="490.0" layoutY="395.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSaveWord" prefHeight="55.0" prefWidth="55.0" text="Save" textAlignment="CENTER" />
+            <Button layoutX="550.0" layoutY="395.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleClearWord" prefHeight="55.0" prefWidth="55.0" text="Clear" textAlignment="CENTER" />
+            <Button layoutX="611.0" layoutY="424.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleAI" prefHeight="26.0" prefWidth="75.0" text="Solve" textAlignment="CENTER" />
             <Label fx:id="pointsLabel" layoutX="510.0" layoutY="6.0" text="Points:" textAlignment="RIGHT" textFill="#f8f8f8e5">
                <font>
                   <Font name="Lucida Sans Regular" size="25.0" />
@@ -266,7 +266,8 @@
                   <Font size="56.0" />
                </font>
             </Label>
-            <Button layoutX="514.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleAI" text="AI Test" />
+            <Button layoutX="14.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleAI" text="AI Test" />
+            <Button ellipsisString="" layoutX="611.0" layoutY="395.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="26.0" prefWidth="75.0" text="New Game" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" />
          </children>
       </AnchorPane>
    </center>
