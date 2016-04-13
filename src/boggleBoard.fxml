@@ -266,6 +266,7 @@
                   <Font size="56.0" />
                </font>
             </Label>
+            <Button layoutX="514.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleAI" text="AI Test" />
          </children>
       </AnchorPane>
    </center>
