@@ -73,116 +73,68 @@ public class BoggleBoardController {
 
 
     //TODO
-    //AI
-    //  - Makes all possible guesses? (most likely will do this)
-    //  - Tries all words in dictionary?
-    //
-    //First get it to print all possible combinations, then check them for valid words
+    //Function checks word against dictionary
+    //Function that checks for all surrounding letters
+    //    - this is recursed with new letters
+
+    void findWordsUtil(String[][] board, boolean[][] visited, int i, int j, String newWord) {
+        visited[i][j] = true;
+        newWord = newWord + board[i][j];
+
+        //if word is in dictionary, print it
+        for (String line: dict) {
+            if (newWord.equalsIgnoreCase(line)) {
+                System.out.println(newWord);
+            }
+        }
+
+        for (int row = i-1; row<=i+1 && row<4; row++) {
+            for (int col = j-1; col<=j+1 && col<4; col++) {
+                if (row>=0 && col>=0 && !visited[row][col]) {
+                    findWordsUtil(board, visited, row, col, newWord);
+                }
+            }
+        }
+
+        newWord = newWord.substring(0, newWord.length()-1);
+        visited[i][j] = false;
+    }
+
+    //this is the AI function
+    void findWords(String[][] board) {
+        boolean[][] visited = new boolean[4][4];
+        String newWord = "";
+        for (int i=0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                findWordsUtil(board, visited, i, j, newWord);
+            }
+        }
+    }
 
     @FXML
     void handleAI(ActionEvent event) {
-        //This should prevent it from trying to make words larger than 16 letters
-        if (AIletterCount < 16) {
-            //for each letter (gridpane)
-            for (Node node : gridPane.getChildren()) {
-
-                //set location of letter
-                AIcolIndex = GridPane.getColumnIndex(node);
-                AIrowIndex = GridPane.getRowIndex(node);
-                if (AIcolIndex == null) {
-                    AIcolIndex = 0;
-                }
-                if (AIrowIndex == null) {
-                    AIrowIndex = 0;
-                }
-
-                //if this is a valid letter {
-                if (AIavailableLetters[AIrowIndex][AIcolIndex] == 1) {
-                    if (AIlastClicked.getKey() != null && AIlastClicked.getValue() != null) {
-                        if (!(AIrowIndex == AIlastClicked.getKey()
-                                && AIcolIndex == AIlastClicked.getValue())
-                                && (((AIrowIndex == (AIlastClicked.getKey() - 1))
-                                || (AIrowIndex == AIlastClicked.getKey())
-                                || (AIrowIndex == (AIlastClicked.getKey() + 1)))
-                                && ((AIcolIndex == (AIlastClicked.getValue() - 1))
-                                || (AIcolIndex == AIlastClicked.getValue())
-                                || (AIcolIndex == (AIlastClicked.getValue() + 1))))) {
-
-                            //do this stuff if valid letter
-                            AIavailableLetters[AIcolIndex][AIrowIndex] = 0;
-                            AIclickedLetters.add(node);
-                            AIlastClicked = new Pair<>(AIcolIndex, AIrowIndex);
-
-                            //sets the word
-                            String word = "";
-                            for (Node letter : AIclickedLetters) {
-                                Label label = (Label) letter;
-                                word += label.getText();
-                            }
-
-                            //checks to see if word is in dictionary or has been used before
-                            boolean wordFound = false;
-                            for (String line : dict) {
-                                if (word.equalsIgnoreCase(line)) {
-                                    for (String newWord : AIusedWords) {
-                                        if (word.equalsIgnoreCase(newWord)) {
-                                            wordFound = true;
-                                        }
-                                    }
-                                    //if we haven't used the word before, add it and print it
-                                    if (!wordFound) {
-                                        AIusedWords.add(word);
-                                        System.out.println(word);
-                                    }
-                                }
-                            }
-                            //increment the letter count and recurse
-                            AIletterCount++;
-                            handleAI(event);
-                        }
-                    }
-                    //this is here for restarting the word check, in which "last clicked" is null
-                    else {
-                        AIavailableLetters[AIcolIndex][AIrowIndex] = 0;
-                        AIclickedLetters.add(node);
-                        AIlastClicked = new Pair<>(AIcolIndex, AIrowIndex);
-                        String word = "";
-                        for (Node letter : AIclickedLetters) {
-                            Label label = (Label) letter;
-                            word += label.getText();
-                        }
-                        boolean wordFound = false;
-                        for (String line : dict) {
-                            if (word.equalsIgnoreCase(line)) {
-                                for (String newWord : AIusedWords) {
-                                    if (word.equalsIgnoreCase(newWord)) {
-                                        wordFound = true;
-                                    }
-                                }
-                                if (!wordFound) {
-                                    AIusedWords.add(word);
-                                    System.out.println(word);
-                                }
-                            }
-                        }
-                        AIletterCount++;
-                        handleAI(event);
-                    }
+        //this is just the button, it will run the AI function initially
+        String[][] boggleBoard = {{"T","A","S","O"},
+                                  {"C","O","E","I"},
+                                  {"Y","W","U","X"},
+                                  {"U","T","H","V"}};
+        int i = 0;
+        int j = 0;
+        /*
+        for (Node node: gridPane.getChildren()) {
+            Label letter = (Label)node;
+            boggleBoard[i][j] = letter.getText();
+            if (i < 3) {
+                if (j < 3) {
+                    j++;
+                } else {
+                    j = 0;
+                    i++;
                 }
             }
         }
-        //if we've used 16 letters, reset the variables and try again
-        else {
-            AIletterCount = 0;
-            for(int k = 0; k < 4; k++) {
-                for(int j = 0; j < 4; j++) {
-                    AIavailableLetters[k][j] = 1;
-                }
-            }
-            AIclickedLetters.clear();
-            AIlastClicked = new Pair<>(null, null);
-            handleAI(event);
-        }
+        */
+        findWords(boggleBoard);
     }
 
     void addToDict() {
