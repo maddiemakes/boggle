@@ -45,6 +45,7 @@ public class BoggleBoardController {
     ArrayList<String> dict = new ArrayList<>();
     URL url = getClass().getResource("dictionaries/bogwords.txt");
     File dictFile = new File(url.getPath());
+    String currentWord = "";
     boolean newDict = true;
     //boolean saveWord is to prevent printing "word cleared" if we're not
     // just clearing a word because the clear function is reused by other code
@@ -303,6 +304,12 @@ public class BoggleBoardController {
             availableLetters[rowIndex][colIndex] = 0;
             lastClicked = new Pair<>(rowIndex, colIndex);
             source.setStyle("-fx-background-color:rgba(40,80,255,1); -fx-opacity:0.9;");
+            currentWord = "";
+            for (Node node: clickedLetters) {
+                Label label = (Label)node;
+                currentWord += label.getText();
+            }
+            notificationLabel.setText('"' + currentWord + '"');
         }
         else {
             notificationLabel.setText("You can't click this square.");
@@ -351,24 +358,26 @@ public class BoggleBoardController {
             notificationLabel.setText("Word cleared.");
         }
         saveWord = false;
+        currentWord = "";
     }
 
     //save word button
     @FXML
     void handleSaveWord(ActionEvent event) {
-        String word = "";
-        for (Node node: clickedLetters) {
-            Label label = (Label)node;
-            word += label.getText();
-        }
-        System.out.println(word);
+//        String word = "";
+//        for (Node node: clickedLetters) {
+//            Label label = (Label)node;
+//            word += label.getText();
+//        }
         boolean wordFound = false;
         for (String line: dict) {
-            if (word.equalsIgnoreCase(line)) {
+            if (currentWord.equalsIgnoreCase(line)) {
                 for (String newWord: usedWords) {
-                    if (word.equalsIgnoreCase(newWord)) {
+                    if (currentWord.equalsIgnoreCase(newWord)) {
                         wordFound = true;
-                        notificationLabel.setText('"' + word + '"' + " has already been used.");
+                        notificationLabel.setText('"' + currentWord + '"' + " has already been used.");
+                        //TODO
+                        //flash all letters red
                     }
                 }
                 if (!wordFound) {
@@ -376,7 +385,7 @@ public class BoggleBoardController {
                     wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
                     wordHistory.setPrefSize(194,20);
                     wordHistory.setMaxSize(Region.USE_PREF_SIZE,Region.USE_COMPUTED_SIZE);
-                    Label wordLabel = new Label(word);
+                    Label wordLabel = new Label(currentWord);
                     wordLabel.setTranslateX(5);
                     wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
                     wordLabel.setPrefSize(155,20);
@@ -385,7 +394,7 @@ public class BoggleBoardController {
                     wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
                     wordPointsLabel.setPrefSize(32,20);
                     wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
-                    switch (word.length()) {
+                    switch (currentWord.length()) {
                         case 0:
                             break;
                         case 1:
@@ -412,15 +421,19 @@ public class BoggleBoardController {
                             wordPointsLabel.setText("+11");
                             break;
                     }
-                    usedWords.add(word);
+                    usedWords.add(currentWord);
                     wordHistory.getChildren().addAll(wordLabel,wordPointsLabel);
                     wordHistoryVBox.getChildren().add(0, wordHistory);
-                    notificationLabel.setText('"' + word + '"' + " saved, " + wordPointsLabel.getText() + " points!");
+                    notificationLabel.setText('"' + currentWord + '"' + " saved, " + wordPointsLabel.getText() + " points!");
+                    //TODO
+                    //flash all letters green
                 }
                 break;
             }
             else {
-                notificationLabel.setText('"' + word + '"' + " is not a valid word.");
+                notificationLabel.setText('"' + currentWord + '"' + " is not a valid word.");
+                //TODO
+                //flash all letters red
             }
         }
         pointsLabel.setText("Points: " + points);
