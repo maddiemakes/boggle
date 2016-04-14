@@ -1,7 +1,10 @@
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -43,6 +46,9 @@ public class BoggleBoardController {
     URL url = getClass().getResource("dictionaries/bogwords.txt");
     File dictFile = new File(url.getPath());
     boolean newDict = true;
+    //boolean saveWord is to prevent printing "word cleared" if we're not
+    // just clearing a word because the clear function is reused by other code
+    boolean saveWord = false;
 
     //AI state variables
     Integer maxPoints = 0;
@@ -67,29 +73,36 @@ public class BoggleBoardController {
     @FXML
     private VBox wordHistoryVBox;
 
+    @FXML
+    private ToggleGroup radioDictionary;
 
-    //TODO
-    //"solve" compares your score and guesses to max
-    // - Add a line break for "your guesses end here"
-    // - run another function which adds a new HBox for new words, shows up red
-    // - "Max possible score:" possibly have this at the bottom (even in like an "update" box)
-/*
-    void compareGuesses() {
-        HBox wordHistory = new HBox();
-        wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
-        wordHistory.setPrefSize(194,20);
-        wordHistory.setMaxSize(Region.USE_PREF_SIZE,Region.USE_COMPUTED_SIZE);
-        Label wordLabel = new Label(word);
-        wordLabel.setTranslateX(5);
-        wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
-        wordLabel.setPrefSize(155,20);
-        wordLabel.setMaxSize(155,Region.USE_COMPUTED_SIZE);
-        Label wordPointsLabel = new Label();
-        wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
-        wordPointsLabel.setPrefSize(32,20);
-        wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
-    }
-    */
+    @FXML
+    private RadioMenuItem dictFrench;
+
+    @FXML
+    private RadioMenuItem dictCustom;
+
+    @FXML
+    private RadioMenuItem dictGerman;
+
+    @FXML
+    private RadioMenuItem dictEnglish;
+
+    @FXML
+    private RadioMenuItem dictEnable;
+
+    @FXML
+    private RadioMenuItem dictScrabble;
+
+    @FXML
+    private RadioMenuItem dictSpanish;
+
+    @FXML
+    private RadioMenuItem dictItalian;
+
+    @FXML
+    private RadioMenuItem dictDeutsch;
+
 
     void findWordsUtil(String[][] board, boolean[][] visited, int i, int j, String newWord) {
         boolean isPossible = false;
@@ -211,28 +224,31 @@ public class BoggleBoardController {
     @FXML
     void handleAI(ActionEvent event) {
         //this is just the button, it will run the AI function initially
-        String[][] boggleBoard = new String[4][4];
-//        String[][] boggleBoard = {{"T","A","S","O"},
-//                                  {"C","O","E","I"},
-//                                  {"Y","W","U","X"},
-//                                  {"U","T","H","V"}};
-//        /*
-        int i = 0;
-        int j = 0;
-        for (Node node: gridPane.getChildren()) {
-            Label letter = (Label)node;
-            boggleBoard[i][j] = letter.getText();
-            if (i < 4) {
-                if (j < 3) {
-                    j++;
-                } else {
-                    j = 0;
-                    i++;
+        notificationLabel.setText("Solving, please wait. This may take a moment.");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Platform.runLater(() -> {
+            String[][] boggleBoard = new String[4][4];
+            int i = 0;
+            int j = 0;
+            for (Node node: gridPane.getChildren()) {
+                Label letter = (Label)node;
+                boggleBoard[i][j] = letter.getText();
+                if (i < 4) {
+                    if (j < 3) {
+                        j++;
+                    } else {
+                        j = 0;
+                        i++;
+                    }
                 }
             }
-        }
-//        */
-        findWords(boggleBoard);
+            findWords(boggleBoard);
+            notificationLabel.setText("All words found. Maximum possible score: " + maxPoints + "     Your score: " + points);
+        });
     }
 
     void addToDict() {
@@ -288,6 +304,9 @@ public class BoggleBoardController {
             lastClicked = new Pair<>(rowIndex, colIndex);
             source.setStyle("-fx-background-color:rgba(40,80,255,1); -fx-opacity:0.9;");
         }
+        else {
+            notificationLabel.setText("You can't click this square.");
+        }
     }
 
     @FXML
@@ -328,6 +347,10 @@ public class BoggleBoardController {
         for (Node node: gridPane.getChildren()) {
             node.setStyle("-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;");
         }
+        if (!(saveWord)) {
+            notificationLabel.setText("Word cleared.");
+        }
+        saveWord = false;
     }
 
     //save word button
@@ -345,6 +368,7 @@ public class BoggleBoardController {
                 for (String newWord: usedWords) {
                     if (word.equalsIgnoreCase(newWord)) {
                         wordFound = true;
+                        notificationLabel.setText('"' + word + '"' + " has already been used.");
                     }
                 }
                 if (!wordFound) {
@@ -391,18 +415,16 @@ public class BoggleBoardController {
                     usedWords.add(word);
                     wordHistory.getChildren().addAll(wordLabel,wordPointsLabel);
                     wordHistoryVBox.getChildren().add(0, wordHistory);
-                    //TODO
-                    //notify player when they get points, use a word twice, or try something that isn't a word
-
-//                    notificationLabel.setText(wordPointsLabel.getText());
-//                    Boggle.notification.getContent().addAll(notificationLabel);
-//                    Boggle.notification.centerOnScreen();
-//                    notification.setAutoHide(true);
-//                    notificationLabel.setVisible(true);
+                    notificationLabel.setText('"' + word + '"' + " saved, " + wordPointsLabel.getText() + " points!");
                 }
+                break;
+            }
+            else {
+                notificationLabel.setText('"' + word + '"' + " is not a valid word.");
             }
         }
         pointsLabel.setText("Points: " + points);
+        saveWord = true;
         handleClearWord(event);
     }
 
@@ -411,18 +433,58 @@ public class BoggleBoardController {
         //TODO
         //alert user this will start new game
         initialize();
+        saveWord = true;
         handleClearWord(event);
         wordHistoryVBox.getChildren().clear();
+        notificationLabel.setText("New game! Game reset!");
     }
 
     @FXML
     public void handleChangeDictionary(ActionEvent event) {
-        FileChooser fc = new FileChooser();
-        dictFile = fc.showOpenDialog(null);
+        RadioMenuItem button = (RadioMenuItem)radioDictionary.getSelectedToggle();
+        switch (button.getText()) {
+            case "English":
+                url = getClass().getResource("dictionaries/bogwords.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "Enable (English)":
+                url = getClass().getResource("dictionaries/enable1.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "Scrabble (English)":
+                url = getClass().getResource("dictionaries/ospd.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "Spanish":
+                url = getClass().getResource("dictionaries/espanol.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "French":
+                url = getClass().getResource("dictionaries/francais.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "Italian":
+                url = getClass().getResource("dictionaries/italiano.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "German":
+                url = getClass().getResource("dictionaries/nederlands3.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "Deutsch":
+                url = getClass().getResource("dictionaries/deutsch.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "Custom...":
+                FileChooser fc = new FileChooser();
+                dictFile = fc.showOpenDialog(null);
+                break;
+        }
         newDict = true;
         //TODO
         //alert user that this will start a new game.
         handleNewGame(event);
+        notificationLabel.setText("New game! Current dictionary: " + button.getText());
     }
 
     @FXML
@@ -442,6 +504,7 @@ public class BoggleBoardController {
             }
         }
         points = 0;
+        maxPoints = 0;
         pointsLabel.setText("Points: " + points);
 
         //this prevents duplicate die numbers

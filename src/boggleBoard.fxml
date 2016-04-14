@@ -15,7 +15,23 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleChangeDictionary" text="Open dictionary" />
+                  <Menu mnemonicParsing="false" text="Dictionary...">
+                    <items>
+                        <RadioMenuItem id="dictEnglish" fx:id="dictEnglish" mnemonicParsing="false" onAction="#handleChangeDictionary" selected="true" text="English">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radioDictionary" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="dictEnable" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Enable (English)" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictScrabble" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Scrabble (English)" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictSpanish" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Spanish" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictFrench" mnemonicParsing="false" onAction="#handleChangeDictionary" text="French" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictItalian" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Italian" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictGerman" mnemonicParsing="false" onAction="#handleChangeDictionary" text="German" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictDeutsch" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Deutsch" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictCustom" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Custom..." toggleGroup="$radioDictionary" />
+                    </items>
+                  </Menu>
               <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close" />
             </items>
           </Menu>
@@ -261,12 +277,12 @@
                   <Insets />
                </opaqueInsets>
             </ScrollPane>
-            <Label fx:id="notificationLabel" alignment="CENTER" focusTraversable="false" layoutX="240.0" layoutY="200.0" text="+4" textAlignment="CENTER" visible="false">
-               <font>
-                  <Font size="56.0" />
-               </font>
-            </Label>
             <Button ellipsisString="" layoutX="611.0" layoutY="395.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="26.0" prefWidth="75.0" text="New Game" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" />
+            <Label fx:id="notificationLabel" layoutX="83.0" layoutY="450.0" prefHeight="25.0" prefWidth="382.0" style="-fx-background-color: rgb(255,255,255); -fx-border-width: 1; -fx-border-color: black;" text="Welcome to Boggle! Default dictionary is English.">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
          </children>
       </AnchorPane>
    </center>
