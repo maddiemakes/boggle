@@ -266,7 +266,6 @@
                   <Font size="56.0" />
                </font>
             </Label>
-            <Button layoutX="14.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleAI" text="AI Test" />
             <Button ellipsisString="" layoutX="611.0" layoutY="395.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="26.0" prefWidth="75.0" text="New Game" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" />
          </children>
       </AnchorPane>
