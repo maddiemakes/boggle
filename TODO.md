@@ -17,6 +17,7 @@
 - [x] AI displays how many points each word is worth
 - [x] Player can check their stuff against the AI to see what words and how many points they missed
 - [x] Clean up buttons/visuals
+- [ ] Dictionary selector is menu of dictionary names with a "open" at the bottom (this way user doesn't have to search for the built-in dictionaries)
 - [ ] AI only checks 3 letter words or more (optional) (this is a real boggle rule)
 - [ ] AI checks dictionary words instead of letters (dynamic programming)
 - [ ] AI shows maximum possible points
