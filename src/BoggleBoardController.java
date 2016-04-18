@@ -1,4 +1,3 @@
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,12 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -102,8 +98,20 @@ public class BoggleBoardController {
     private RadioMenuItem dictItalian;
 
     @FXML
-    private RadioMenuItem dictDeutsch;
+    private RadioMenuItem dictDutch;
 
+
+    //this is the AI function
+    void findWords(String[][] board) {
+        boolean[][] visited = new boolean[4][4];
+        String newWord = "";
+        for (int i=0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                findWordsUtil(board, visited, i, j, newWord);
+            }
+        }
+        maxPoints += points;
+    }
 
     void findWordsUtil(String[][] board, boolean[][] visited, int i, int j, String newWord) {
         boolean isPossible = false;
@@ -125,8 +133,6 @@ public class BoggleBoardController {
                     }
                 }
                 if (!wordFound) {
-//                System.out.println("");
-//                System.out.print("AI: ");
                     HBox wordHistory = new HBox();
                     wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
                     wordHistory.setPrefSize(194,20);
@@ -149,27 +155,22 @@ public class BoggleBoardController {
                         case 2:
                         case 3:
                         case 4:
-                            System.out.print("[+1] ");
                             maxPoints++;
                             wordPointsLabel.setText("+1");
                             break;
                         case 5:
-                            System.out.print("[+2] ");
                             maxPoints += 2;
                             wordPointsLabel.setText("+2");
                             break;
                         case 6:
-                            System.out.print("[+3] ");
                             maxPoints += 3;
                             wordPointsLabel.setText("+3");
                             break;
                         case 7:
-                            System.out.print("[+5] ");
                             maxPoints += 5;
                             wordPointsLabel.setText("+5");
                             break;
                         default:
-                            System.out.print("[+11] ");
                             maxPoints += 11;
                             wordPointsLabel.setText("+11");
                             break;
@@ -177,7 +178,6 @@ public class BoggleBoardController {
                     AIusedWords.add(newWord);
                     wordHistory.getChildren().addAll(wordLabel,wordPointsLabel);
                     wordHistoryVBox.getChildren().add(0, wordHistory);
-                    System.out.println(newWord);
                 }
             }
             else if (line.length() >= newWord.length()){
@@ -189,7 +189,6 @@ public class BoggleBoardController {
         }
 
         if (!isPossible) {
-//            System.out.print(newWord + ", ");
             newWord = newWord.substring(0, newWord.length()-1);
             visited[i][j] = false;
             return;
@@ -207,19 +206,6 @@ public class BoggleBoardController {
         //Intellij says this isn't used, but it's used by the for loop in "findWords()"
         newWord = newWord.substring(0, newWord.length()-1);
         visited[i][j] = false;
-    }
-
-    //this is the AI function
-    void findWords(String[][] board) {
-        boolean[][] visited = new boolean[4][4];
-        String newWord = "";
-        for (int i=0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                findWordsUtil(board, visited, i, j, newWord);
-            }
-        }
-        maxPoints += points;
-        System.out.println("Maximum possible points: " + maxPoints);
     }
 
     @FXML
@@ -461,31 +447,32 @@ public class BoggleBoardController {
                 dictFile = new File(url.getPath());
                 break;
             case "Enable (English)":
-                url = getClass().getResource("dictionaries/enable1.txt");
+                url = getClass().getResource("/dictionaries/enable1.txt");
                 dictFile = new File(url.getPath());
                 break;
             case "Scrabble (English)":
-                url = getClass().getResource("dictionaries/ospd.txt");
+                url = getClass().getResource("./dictionaries/ospd.txt");
                 dictFile = new File(url.getPath());
                 break;
             case "Spanish":
-                url = getClass().getResource("dictionaries/espanol.txt");
+                url = getClass().getResource("@/dictionaries/espanol.txt");
+//                url = getClass().getClassLoader().getResource("@./dictionaries/espanol.txt");
                 dictFile = new File(url.getPath());
                 break;
             case "French":
-                url = getClass().getResource("dictionaries/francais.txt");
+                url = getClass().getResource("@/francais.txt");
                 dictFile = new File(url.getPath());
                 break;
             case "Italian":
-                url = getClass().getResource("dictionaries/italiano.txt");
+                url = getClass().getResource("@./italiano.txt");
+                dictFile = new File(url.getPath());
+                break;
+            case "Dutch":
+                url = getClass().getResource("/dictionaries/nederlands3.txt");
                 dictFile = new File(url.getPath());
                 break;
             case "German":
-                url = getClass().getResource("dictionaries/nederlands3.txt");
-                dictFile = new File(url.getPath());
-                break;
-            case "Deutsch":
-                url = getClass().getResource("dictionaries/deutsch.txt");
+                url = getClass().getResource("/dictionaries/deutsch.txt");
                 dictFile = new File(url.getPath());
                 break;
             case "Custom...":

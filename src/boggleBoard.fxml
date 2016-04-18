@@ -27,8 +27,8 @@
                         <RadioMenuItem fx:id="dictSpanish" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Spanish" toggleGroup="$radioDictionary" />
                         <RadioMenuItem fx:id="dictFrench" mnemonicParsing="false" onAction="#handleChangeDictionary" text="French" toggleGroup="$radioDictionary" />
                         <RadioMenuItem fx:id="dictItalian" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Italian" toggleGroup="$radioDictionary" />
+                        <RadioMenuItem fx:id="dictDutch" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Dutch" toggleGroup="$radioDictionary" />
                         <RadioMenuItem fx:id="dictGerman" mnemonicParsing="false" onAction="#handleChangeDictionary" text="German" toggleGroup="$radioDictionary" />
-                        <RadioMenuItem fx:id="dictDeutsch" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Deutsch" toggleGroup="$radioDictionary" />
                         <RadioMenuItem fx:id="dictCustom" mnemonicParsing="false" onAction="#handleChangeDictionary" text="Custom..." toggleGroup="$radioDictionary" />
                     </items>
                   </Menu>
@@ -55,7 +55,7 @@
                <effect>
                   <ImageInput>
                      <source>
-                        <Image url="file:src/wood.jpg" />
+                        <Image url="/wood.jpg" />
                      </source>
                   </ImageInput>
                </effect>
