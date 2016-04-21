@@ -13,10 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
@@ -39,8 +36,9 @@ public class BoggleBoardController {
     }};
     ArrayList<String> usedWords = new ArrayList<>();
     ArrayList<String> dict = new ArrayList<>();
-    URL url = getClass().getResource("dictionaries/bogwords.txt");
-    File dictFile = new File(url.getPath());
+//    URL url = getClass().getResource("dictionaries/bogwords.txt");
+//    File dictFile = new File(url.getPath());
+    InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
     String currentWord = "";
     boolean newDict = true;
     //boolean saveWord is to prevent printing "word cleared" if we're not
@@ -239,7 +237,8 @@ public class BoggleBoardController {
     }
 
     void addToDict() {
-        try(BufferedReader br = new BufferedReader(new FileReader(dictFile))) {
+//        try(BufferedReader br = new BufferedReader(new FileReader(dictFile))) {
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(dictFile))) {
             for(String line; (line = br.readLine()) != null; ) {
                 dict.add(line);
             }
@@ -443,41 +442,38 @@ public class BoggleBoardController {
         RadioMenuItem button = (RadioMenuItem)radioDictionary.getSelectedToggle();
         switch (button.getText()) {
             case "English":
-                url = getClass().getResource("dictionaries/bogwords.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
                 break;
             case "Enable (English)":
-                url = getClass().getResource("/dictionaries/enable1.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/enable1.txt");
                 break;
             case "Scrabble (English)":
-                url = getClass().getResource("./dictionaries/ospd.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/ospd.txt");
                 break;
             case "Spanish":
-                url = getClass().getResource("@/dictionaries/espanol.txt");
-//                url = getClass().getClassLoader().getResource("@./dictionaries/espanol.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/espanol.txt");
                 break;
             case "French":
-                url = getClass().getResource("@/francais.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/francais.txt");
                 break;
             case "Italian":
-                url = getClass().getResource("@./italiano.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/italiano.txt");
                 break;
             case "Dutch":
-                url = getClass().getResource("/dictionaries/nederlands3.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/nederlands3.txt");
                 break;
             case "German":
-                url = getClass().getResource("/dictionaries/deutsch.txt");
-                dictFile = new File(url.getPath());
+                dictFile = getClass().getResourceAsStream("/dictionaries/deutsch.txt");
                 break;
             case "Custom...":
                 FileChooser fc = new FileChooser();
-                dictFile = fc.showOpenDialog(null);
+                File temp = fc.showOpenDialog(null);
+                String path = temp.getAbsolutePath();
+                try {
+                    dictFile = new FileInputStream(path);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
         newDict = true;
