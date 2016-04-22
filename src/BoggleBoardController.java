@@ -26,19 +26,10 @@ public class BoggleBoardController {
     Integer[][] availableLetters = new Integer[4][4];
     List<Node> clickedLetters = new ArrayList<>();
     Pair<Integer, Integer> lastClicked = new Pair<>(null, null);
-    List<String> dice = new ArrayList<String>(16) {{
-        add("AAEEGN"); add("ABBJOO"); add("ACHOPS");
-        add("AFFKPS"); add("AOOTTW"); add("CIMOTU");
-        add("DEILRX"); add("DELRVY"); add("DISTTY");
-        add("EEGHNW"); add("EEINSU"); add("EHRTVW");
-        add("EIOSST"); add("ELRTTY"); add("HIMNUQ");
-        add("HLNNRZ");
-    }};
     ArrayList<String> usedWords = new ArrayList<>();
     ArrayList<String> dict = new ArrayList<>();
 //    URL url = getClass().getResource("dictionaries/bogwords.txt");
 //    File dictFile = new File(url.getPath());
-    InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
     String currentWord = "";
     boolean newDict = true;
     //boolean saveWord is to prevent printing "word cleared" if we're not
@@ -49,6 +40,11 @@ public class BoggleBoardController {
     Integer maxPoints = 0;
     ArrayList<String> AIusedWords = new ArrayList<>();
 
+    //Settings
+    List<String> dice = Settings.dice;
+    InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
+    //TODO
+//    InputStream dictFile = Settings.dictFile;
 
     @FXML
     private ResourceBundle resources;
@@ -140,12 +136,12 @@ public class BoggleBoardController {
                     wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
                     wordLabel.setPrefSize(155,20);
                     wordLabel.setMaxSize(155,Region.USE_COMPUTED_SIZE);
-                    wordLabel.setStyle("-fx-text-fill:rgb(255,0,0)");
+                    wordLabel.setStyle(Settings.colorAIWords);
                     Label wordPointsLabel = new Label();
                     wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
                     wordPointsLabel.setPrefSize(32,20);
                     wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
-                    wordPointsLabel.setStyle("-fx-text-fill:rgb(255,0,0)");
+                    wordPointsLabel.setStyle(Settings.colorAIWords);
                     switch (newWord.length()) {
                         case 0:
                             break;
@@ -288,7 +284,8 @@ public class BoggleBoardController {
             clickedLetters.add(source);
             availableLetters[rowIndex][colIndex] = 0;
             lastClicked = new Pair<>(rowIndex, colIndex);
-            source.setStyle("-fx-background-color:rgba(40,80,255,1); -fx-opacity:0.9;");
+            //blue clicked color
+            source.setStyle(Settings.colorClicked);
             currentWord = "";
             for (Node node: clickedLetters) {
                 Label label = (Label)node;
@@ -306,7 +303,7 @@ public class BoggleBoardController {
         Node source = (Node) event.getSource();
         mouseEvent(event, source);
         if (isValidLetter()) {
-            source.setStyle("-fx-background-color:rgba(90,255,110,1); -fx-opacity:0.8;");
+            source.setStyle(Settings.colorCanClick);
         }
         else {
             for (Node node: clickedLetters) {
@@ -314,7 +311,7 @@ public class BoggleBoardController {
                     return;
                 }
             }
-            source.setStyle("-fx-background-color:rgba(255,90,90,1); -fx-opacity:0.8;");
+            source.setStyle(Settings.colorCantClick);
         }
     }
 
@@ -323,7 +320,7 @@ public class BoggleBoardController {
         Node source = (Node) event.getSource();
         mouseEvent(event, source);
         if (availableLetters[rowIndex][colIndex] == 1) {
-            source.setStyle("-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;");
+            source.setStyle(Settings.colorEmptySquare);
         }
     }
 
@@ -337,7 +334,7 @@ public class BoggleBoardController {
         clickedLetters.clear();
         lastClicked = new Pair<>(null, null);
         for (Node node: gridPane.getChildren()) {
-            node.setStyle("-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;");
+            node.setStyle(Settings.colorEmptySquare);
         }
         if (!(saveWord)) {
             notificationLabel.setText("Word cleared.");
