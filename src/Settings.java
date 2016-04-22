@@ -29,16 +29,11 @@ public class Settings {
     //Solver words that player missed (red on default theme)
     public static String woodColorAIWords = "-fx-text-fill:rgb(255,0,0)";
 
-    //blue
-    public static String hackerColorClicked = "-fx-background-color:rgba(0,0,255,1); -fx-opacity:1;";
-    //green
-    public static String hackerColorCanClick = "-fx-background-color:rgba(0,255,0,1); -fx-opacity:1;";
-    //red
+    public static String hackerColorClicked = "-fx-text-fill: BLACK; -fx-background-color:rgba(0,255,0,1); -fx-opacity:1;";
+    public static String hackerColorCanClick = "-fx-background-color:rgba(255,255,255,1); -fx-opacity:1;";
     public static String hackerColorCantClick = "-fx-background-color:rgba(255,0,0,1); -fx-opacity:1;";
-    //white
-    public static String hackerColorEmptySquare = "-fx-background-color: rgba(255,255,255,1); -fx-opacity: 1;";
-    //text color
-    public static String hackerColorSquareText = "-fx-color:rgba(0,255,0,1); -fx-opacity:1;";
+    public static String hackerColorEmptySquare = "-fx-text-fill: rgba(0,245,0,1); -fx-background-color: rgba(150,150,150,1); -fx-opacity: 1;";
+//    public static String hackerColorSquareText = "-fx-color:rgba(0,255,0,1); -fx-opacity:1;";
     //Solver words that player missed (red on default theme)
     public static String hackerColorAIWords = "-fx-text-fill:rgb(255,0,0)";
 
