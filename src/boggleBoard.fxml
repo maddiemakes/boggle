@@ -60,7 +60,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle arcHeight="5.0" fill="DODGERBLUE" height="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="550.0">
+            <Rectangle arcHeight="5.0" fill="BLACK" height="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="550.0" fx:id="background">
                <effect>
                   <ImageInput>
                      <source>

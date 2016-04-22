@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
 import javafx.scene.control.Label;
@@ -41,8 +42,13 @@ public class BoggleBoardController {
     ArrayList<String> AIusedWords = new ArrayList<>();
 
     //Settings
-    List<String> dice = Settings.dice;
+    List<String> dice = Settings.newDice;
     InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
+    String colorAIWords = Settings.woodColorAIWords;
+    String colorClicked = Settings.woodColorClicked;
+    String colorCanClick = Settings.woodColorCanClick;
+    String colorCantClick = Settings.woodColorCantClick;
+    String colorEmptySquare = Settings.woodColorEmptySquare;
     //TODO
 //    InputStream dictFile = Settings.dictFile;
 
@@ -63,6 +69,9 @@ public class BoggleBoardController {
 
     @FXML
     private VBox wordHistoryVBox;
+
+    @FXML
+    private Rectangle background;
 
     @FXML
     private ToggleGroup radioDictionary;
@@ -95,13 +104,14 @@ public class BoggleBoardController {
     private RadioMenuItem dictDutch;
 
     @FXML
-    private ToggleGroup radioTheme;
+    public ToggleGroup radioTheme;
 
     @FXML
-    private RadioMenuItem themeWood;
+    public RadioMenuItem themeWood;
 
     @FXML
-    private RadioMenuItem themeHacker;
+    public RadioMenuItem themeHacker;
+
 
     //this is the AI function
     void findWords(String[][] board) {
@@ -144,12 +154,12 @@ public class BoggleBoardController {
                     wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
                     wordLabel.setPrefSize(155,20);
                     wordLabel.setMaxSize(155,Region.USE_COMPUTED_SIZE);
-                    wordLabel.setStyle(Settings.colorAIWords);
+                    wordLabel.setStyle(colorAIWords);
                     Label wordPointsLabel = new Label();
                     wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
                     wordPointsLabel.setPrefSize(32,20);
                     wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
-                    wordPointsLabel.setStyle(Settings.colorAIWords);
+                    wordPointsLabel.setStyle(colorAIWords);
                     switch (newWord.length()) {
                         case 0:
                             break;
@@ -242,7 +252,25 @@ public class BoggleBoardController {
 
     @FXML
     void handleChangeTheme(ActionEvent event) {
-
+        RadioMenuItem button = (RadioMenuItem)radioTheme.getSelectedToggle();
+        switch (button.getId()) {
+            case "themeWood":
+                colorAIWords = Settings.woodColorAIWords;
+                colorClicked = Settings.woodColorClicked;
+                colorCanClick = Settings.woodColorCanClick;
+                colorCantClick = Settings.woodColorCantClick;
+                colorEmptySquare = Settings.woodColorEmptySquare;
+                break;
+            case "themeHacker":
+                colorAIWords = Settings.hackerColorAIWords;
+                colorClicked = Settings.hackerColorClicked;
+                colorCanClick = Settings.hackerColorCanClick;
+                colorCantClick = Settings.hackerColorCantClick;
+                colorEmptySquare = Settings.hackerColorEmptySquare;
+                background.setEffect(null);
+                break;
+        }
+        handleNewGame(event);
     }
 
     void addToDict() {
@@ -298,7 +326,7 @@ public class BoggleBoardController {
             availableLetters[rowIndex][colIndex] = 0;
             lastClicked = new Pair<>(rowIndex, colIndex);
             //blue clicked color
-            source.setStyle(Settings.colorClicked);
+            source.setStyle(colorClicked);
             currentWord = "";
             for (Node node: clickedLetters) {
                 Label label = (Label)node;
@@ -316,7 +344,7 @@ public class BoggleBoardController {
         Node source = (Node) event.getSource();
         mouseEvent(event, source);
         if (isValidLetter()) {
-            source.setStyle(Settings.colorCanClick);
+            source.setStyle(colorCanClick);
         }
         else {
             for (Node node: clickedLetters) {
@@ -324,7 +352,7 @@ public class BoggleBoardController {
                     return;
                 }
             }
-            source.setStyle(Settings.colorCantClick);
+            source.setStyle(colorCantClick);
         }
     }
 
@@ -333,7 +361,7 @@ public class BoggleBoardController {
         Node source = (Node) event.getSource();
         mouseEvent(event, source);
         if (availableLetters[rowIndex][colIndex] == 1) {
-            source.setStyle(Settings.colorEmptySquare);
+            source.setStyle(colorEmptySquare);
         }
     }
 
@@ -347,7 +375,7 @@ public class BoggleBoardController {
         clickedLetters.clear();
         lastClicked = new Pair<>(null, null);
         for (Node node: gridPane.getChildren()) {
-            node.setStyle(Settings.colorEmptySquare);
+            node.setStyle(colorEmptySquare);
         }
         if (!(saveWord)) {
             notificationLabel.setText("Word cleared.");

@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Settings {
 
-    public static List<String> dice = new ArrayList<String>(16) {{
+
+    public static List<String> newDice = new ArrayList<String>(16) {{
         add("AAEEGN"); add("ABBJOO"); add("ACHOPS");
         add("AFFKPS"); add("AOOTTW"); add("CIMOTU");
         add("DEILRX"); add("DELRVY"); add("DISTTY");
@@ -18,14 +19,27 @@ public class Settings {
 
     //Colors
     //blue
-    public static String colorClicked = "-fx-background-color:rgba(40,80,255,1); -fx-opacity:0.9;";
+    public static String woodColorClicked = "-fx-background-color:rgba(40,80,255,1); -fx-opacity:0.9;";
     //green
-    public static String colorCanClick = "-fx-background-color:rgba(90,255,110,1); -fx-opacity:0.8;";
+    public static String woodColorCanClick = "-fx-background-color:rgba(90,255,110,1); -fx-opacity:0.8;";
     //red
-    public static String colorCantClick = "-fx-background-color:rgba(255,90,90,1); -fx-opacity:0.8;";
+    public static String woodColorCantClick = "-fx-background-color:rgba(255,90,90,1); -fx-opacity:0.8;";
     //white
-    public static String colorEmptySquare = "-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;";
+    public static String woodColorEmptySquare = "-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;";
     //Solver words that player missed (red on default theme)
-    public static String colorAIWords = "-fx-text-fill:rgb(255,0,0)";
+    public static String woodColorAIWords = "-fx-text-fill:rgb(255,0,0)";
+
+    //blue
+    public static String hackerColorClicked = "-fx-background-color:rgba(0,0,255,1); -fx-opacity:1;";
+    //green
+    public static String hackerColorCanClick = "-fx-background-color:rgba(0,255,0,1); -fx-opacity:1;";
+    //red
+    public static String hackerColorCantClick = "-fx-background-color:rgba(255,0,0,1); -fx-opacity:1;";
+    //white
+    public static String hackerColorEmptySquare = "-fx-background-color: rgba(255,255,255,1); -fx-opacity: 1;";
+    //text color
+    public static String hackerColorSquareText = "-fx-color:rgba(0,255,0,1); -fx-opacity:1;";
+    //Solver words that player missed (red on default theme)
+    public static String hackerColorAIWords = "-fx-text-fill:rgb(255,0,0)";
 
 }
