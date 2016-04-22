@@ -35,10 +35,19 @@
               <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
+          <Menu mnemonicParsing="false" text="Options">
+               <items>
+                  <Menu mnemonicParsing="false" text="Theme">
+                    <items>
+                        <RadioMenuItem fx:id="themeWood" mnemonicParsing="false" onAction="#handleChangeTheme" selected="true" text="Wood grain">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radioTheme" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="themeHacker" mnemonicParsing="false" onAction="#handleChangeTheme" text="Hacker" toggleGroup="$radioTheme" />
+                    </items>
+                  </Menu>
+               </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>

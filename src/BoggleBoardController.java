@@ -94,6 +94,14 @@ public class BoggleBoardController {
     @FXML
     private RadioMenuItem dictDutch;
 
+    @FXML
+    private ToggleGroup radioTheme;
+
+    @FXML
+    private RadioMenuItem themeWood;
+
+    @FXML
+    private RadioMenuItem themeHacker;
 
     //this is the AI function
     void findWords(String[][] board) {
@@ -230,6 +238,11 @@ public class BoggleBoardController {
             findWords(boggleBoard);
             notificationLabel.setText("All words found. Maximum possible score: " + maxPoints + "     Your score: " + points);
         });
+    }
+
+    @FXML
+    void handleChangeTheme(ActionEvent event) {
+
     }
 
     void addToDict() {
