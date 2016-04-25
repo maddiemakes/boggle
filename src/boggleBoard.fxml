@@ -47,11 +47,21 @@
                         <RadioMenuItem fx:id="themeHacker" mnemonicParsing="false" onAction="#handleChangeTheme" text="Hacker" toggleGroup="$radioTheme" />
                     </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="Dice">
+                     <items>
+                        <RadioMenuItem fx:id="diceNew1" mnemonicParsing="false" onAction="#handleChangeDice" selected="true" text="New Dice (Default)">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radioDice" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="diceClassic1" mnemonicParsing="false" onAction="#handleChangeDice" text="Classic Dice" toggleGroup="$radioDice" />
+                     </items>
+                  </Menu>
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
             </items>
           </Menu>
         </menus>

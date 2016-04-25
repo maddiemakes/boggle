@@ -5,13 +5,22 @@ import java.util.List;
 public class Settings {
 
 
-    public static List<String> newDice = new ArrayList<String>(16) {{
+    public static List<String> diceNew = new ArrayList<String>(16) {{
         add("AAEEGN"); add("ABBJOO"); add("ACHOPS");
         add("AFFKPS"); add("AOOTTW"); add("CIMOTU");
         add("DEILRX"); add("DELRVY"); add("DISTTY");
         add("EEGHNW"); add("EEINSU"); add("EHRTVW");
         add("EIOSST"); add("ELRTTY"); add("HIMNUQ");
         add("HLNNRZ");
+    }};
+
+    public static List<String> diceClassic = new ArrayList<String>(16) {{
+        add("AACIOT"); add("ABILTY"); add("ABJMOQ");
+        add("ACDEMP"); add("ACELRS"); add("ADENVZ");
+        add("AHMORS"); add("BIFORX"); add("DENOSW");
+        add("DKNOTU"); add("EEFHIY"); add("EGKLUY");
+        add("EGINTV"); add("EHINPS"); add("ELPSTU");
+        add("GILRUW");
     }};
 
     //TODO

@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -29,8 +31,6 @@ public class BoggleBoardController {
     Pair<Integer, Integer> lastClicked = new Pair<>(null, null);
     ArrayList<String> usedWords = new ArrayList<>();
     ArrayList<String> dict = new ArrayList<>();
-//    URL url = getClass().getResource("dictionaries/bogwords.txt");
-//    File dictFile = new File(url.getPath());
     String currentWord = "";
     boolean newDict = true;
     //boolean saveWord is to prevent printing "word cleared" if we're not
@@ -42,7 +42,7 @@ public class BoggleBoardController {
     ArrayList<String> AIusedWords = new ArrayList<>();
 
     //Settings
-    List<String> dice = Settings.newDice;
+    List<String> dice = Settings.diceNew;
     InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
     String colorAIWords = Settings.woodColorAIWords;
     String colorClicked = Settings.woodColorClicked;
@@ -50,8 +50,6 @@ public class BoggleBoardController {
     String colorCantClick = Settings.woodColorCantClick;
     String colorEmptySquare = Settings.woodColorEmptySquare;
     String colorNotification = Settings.woodNotifications;
-    //TODO
-//    InputStream dictFile = Settings.dictFile;
 
     @FXML
     private ResourceBundle resources;
@@ -112,6 +110,15 @@ public class BoggleBoardController {
 
     @FXML
     public RadioMenuItem themeHacker;
+
+    @FXML
+    private ToggleGroup radioDice;
+
+    @FXML
+    private RadioMenuItem radioNew1;
+
+    @FXML
+    private RadioMenuItem radioClassic1;
 
 
     //this is the AI function
@@ -276,6 +283,20 @@ public class BoggleBoardController {
         }
         handleClearWord(event);
         notificationLabel.setStyle(colorNotification);
+    }
+
+    @FXML
+    void handleChangeDice(ActionEvent event) {
+        RadioMenuItem button = (RadioMenuItem)radioDice.getSelectedToggle();
+        switch (button.getId()) {
+            case "diceNew1":
+                dice = Settings.diceNew;
+                break;
+            case "diceClassic1":
+                dice = Settings.diceClassic;
+                break;
+        }
+        handleNewGame(event);
     }
 
     void addToDict() {
@@ -476,10 +497,6 @@ public class BoggleBoardController {
         alert.setHeaderText(null);
         alert.setContentText("Warning, this action will start a new game. All progress will be lost.");
         Optional<ButtonType> result = alert.showAndWait();
-        //TODO
-        //alert user this will start new game
-        //open alert
-        //when you click okay, "newGame" = true
         if (result.get() == ButtonType.OK) {
             initialize();
             saveWord = true;
@@ -534,6 +551,15 @@ public class BoggleBoardController {
         //alert user that this will start a new game.
         handleNewGame(event);
         notificationLabel.setText("New game! Current dictionary: " + button.getText());
+    }
+
+    @FXML
+    public void handleAbout(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setHeaderText(null);
+        alert.setContentText("Java Boggle v1.1\n\nWritten April 2016 by Jordan Wells and Sam Murray.\nLast updated 25 April 2016");
+        alert.showAndWait();
     }
 
     @FXML
