@@ -2,8 +2,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -14,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
-import javafx.scene.control.Label;
 
 import java.io.*;
 import java.net.URL;
@@ -276,7 +274,8 @@ public class BoggleBoardController {
                 background.setEffect(null);
                 break;
         }
-        handleNewGame(event);
+        handleClearWord(event);
+        notificationLabel.setStyle(colorNotification);
     }
 
     void addToDict() {
@@ -472,14 +471,23 @@ public class BoggleBoardController {
 
     @FXML
     void handleNewGame(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("New Game");
+        alert.setHeaderText(null);
+        alert.setContentText("Warning, this action will start a new game. All progress will be lost.");
+        Optional<ButtonType> result = alert.showAndWait();
         //TODO
         //alert user this will start new game
-        initialize();
-        saveWord = true;
-        handleClearWord(event);
-        wordHistoryVBox.getChildren().clear();
-        notificationLabel.setStyle(colorNotification);
-        notificationLabel.setText("New game! Game reset!");
+        //open alert
+        //when you click okay, "newGame" = true
+        if (result.get() == ButtonType.OK) {
+            initialize();
+            saveWord = true;
+            handleClearWord(event);
+            wordHistoryVBox.getChildren().clear();
+            notificationLabel.setStyle(colorNotification);
+            notificationLabel.setText("New game! Game reset!");
+        }
     }
 
     @FXML
