@@ -24,7 +24,7 @@
 - [ ] Game ends when all possible words have been chosen
 - [x] Alert messages for "you win!" "not a real word"
     - [ ] If word isn't real, turn all letters red for a second or two
-- [ ] Alert message for starting new game
-- [ ] Themes
+- [x] Alert message for starting new game
+- [x] Themes
 - [ ] 5x5
-- [ ] Classic dice vs. new dice
+- [x] Classic dice vs. new dice
