@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.ImageInput;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -49,6 +51,7 @@ public class BoggleBoardController {
     String colorCanClick = Settings.woodColorCanClick;
     String colorCantClick = Settings.woodColorCantClick;
     String colorEmptySquare = Settings.woodColorEmptySquare;
+    String colorNotification = Settings.woodNotifications;
     //TODO
 //    InputStream dictFile = Settings.dictFile;
 
@@ -260,6 +263,8 @@ public class BoggleBoardController {
                 colorCanClick = Settings.woodColorCanClick;
                 colorCantClick = Settings.woodColorCantClick;
                 colorEmptySquare = Settings.woodColorEmptySquare;
+                colorNotification = Settings.woodNotifications;
+                background.setEffect(new ImageInput(new Image("/wood.jpg")));
                 break;
             case "themeHacker":
                 colorAIWords = Settings.hackerColorAIWords;
@@ -267,6 +272,7 @@ public class BoggleBoardController {
                 colorCanClick = Settings.hackerColorCanClick;
                 colorCantClick = Settings.hackerColorCantClick;
                 colorEmptySquare = Settings.hackerColorEmptySquare;
+                colorNotification = Settings.hackerNotifications;
                 background.setEffect(null);
                 break;
         }
@@ -472,6 +478,7 @@ public class BoggleBoardController {
         saveWord = true;
         handleClearWord(event);
         wordHistoryVBox.getChildren().clear();
+        notificationLabel.setStyle(colorNotification);
         notificationLabel.setText("New game! Game reset!");
     }
 

@@ -18,22 +18,19 @@ public class Settings {
 //    public static InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
 
     //Colors
-    //blue
     public static String woodColorClicked = "-fx-background-color:rgba(40,80,255,1); -fx-opacity:0.9;";
-    //green
     public static String woodColorCanClick = "-fx-background-color:rgba(90,255,110,1); -fx-opacity:0.8;";
-    //red
     public static String woodColorCantClick = "-fx-background-color:rgba(255,90,90,1); -fx-opacity:0.8;";
-    //white
     public static String woodColorEmptySquare = "-fx-background-color: rgba(245,245,245,1); -fx-opacity: 0.8;";
+    public static String woodNotifications = "-fx-alignment: center; -fx-text-fill: rgb(0,0,0); -fx-background-color: rgb(255,255,255); -fx-border-width: 1; -fx-border-color: rgba(30,30,30,0.9);";
     //Solver words that player missed (red on default theme)
     public static String woodColorAIWords = "-fx-text-fill:rgb(255,0,0)";
 
     public static String hackerColorClicked = "-fx-text-fill: BLACK; -fx-background-color:rgba(0,255,0,1); -fx-opacity:1;";
     public static String hackerColorCanClick = "-fx-background-color:rgba(255,255,255,1); -fx-opacity:1;";
     public static String hackerColorCantClick = "-fx-background-color:rgba(255,0,0,1); -fx-opacity:1;";
-    public static String hackerColorEmptySquare = "-fx-text-fill: rgba(0,245,0,1); -fx-background-color: rgba(150,150,150,1); -fx-opacity: 1;";
-//    public static String hackerColorSquareText = "-fx-color:rgba(0,255,0,1); -fx-opacity:1;";
+    public static String hackerColorEmptySquare = "-fx-text-fill: rgba(0,245,0,1); -fx-background-color: rgba(80,80,80,1); -fx-opacity: 1;";
+    public static String hackerNotifications = "-fx-alignment: center-left; -fx-text-fill: rgb(0,245,0); -fx-background-color: rgb(0,0,0); -fx-border-width: 2; -fx-border-color: rgba(80,80,80,1);";
     //Solver words that player missed (red on default theme)
     public static String hackerColorAIWords = "-fx-text-fill:rgb(255,0,0)";
 
