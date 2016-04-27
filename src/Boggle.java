@@ -11,9 +11,12 @@ public class Boggle extends Application {
     }
 
     static Scene scene;
+    static Stage primary;
 
     @Override
     public void start(Stage primary) throws Exception {
+        this.primary = primary;
+        primary.setHeight(590);
         Parent root = FXMLLoader.load(getClass().getResource("boggleBoard.fxml"));
         scene = new Scene(root);
         primary.setScene(scene);

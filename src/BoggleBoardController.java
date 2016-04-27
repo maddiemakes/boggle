@@ -7,15 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
 
-import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -42,6 +38,8 @@ public class BoggleBoardController {
     ArrayList<String> AIusedWords = new ArrayList<>();
 
     //Settings
+    boolean typeWords = false;
+    boolean changeSetting = false;
     List<String> dice = Settings.diceNew;
     InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
     String colorAIWords = Settings.woodColorAIWords;
@@ -56,6 +54,9 @@ public class BoggleBoardController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private BorderPane borderPane;
 
     @FXML
     private GridPane gridPane;
@@ -120,6 +121,12 @@ public class BoggleBoardController {
     @FXML
     private RadioMenuItem radioClassic1;
 
+    @FXML
+    private CheckMenuItem radioTypeWords;
+
+    @FXML
+    private TextField textWordGuess;
+
 
     //this is the AI function
     void findWords(String[][] board) {
@@ -153,51 +160,7 @@ public class BoggleBoardController {
                     }
                 }
                 if (!wordFound) {
-                    HBox wordHistory = new HBox();
-                    wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
-                    wordHistory.setPrefSize(194,20);
-                    wordHistory.setMaxSize(Region.USE_PREF_SIZE,Region.USE_COMPUTED_SIZE);
-                    Label wordLabel = new Label(newWord);
-                    wordLabel.setTranslateX(5);
-                    wordLabel.setMinSize(155,Region.USE_COMPUTED_SIZE);
-                    wordLabel.setPrefSize(155,20);
-                    wordLabel.setMaxSize(155,Region.USE_COMPUTED_SIZE);
-                    wordLabel.setStyle(colorAIWords);
-                    Label wordPointsLabel = new Label();
-                    wordPointsLabel.setMinSize(20,Region.USE_COMPUTED_SIZE);
-                    wordPointsLabel.setPrefSize(32,20);
-                    wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE,Region.USE_COMPUTED_SIZE);
-                    wordPointsLabel.setStyle(colorAIWords);
-                    switch (newWord.length()) {
-                        case 0:
-                            break;
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                            maxPoints++;
-                            wordPointsLabel.setText("+1");
-                            break;
-                        case 5:
-                            maxPoints += 2;
-                            wordPointsLabel.setText("+2");
-                            break;
-                        case 6:
-                            maxPoints += 3;
-                            wordPointsLabel.setText("+3");
-                            break;
-                        case 7:
-                            maxPoints += 5;
-                            wordPointsLabel.setText("+5");
-                            break;
-                        default:
-                            maxPoints += 11;
-                            wordPointsLabel.setText("+11");
-                            break;
-                    }
                     AIusedWords.add(newWord);
-                    wordHistory.getChildren().addAll(wordLabel,wordPointsLabel);
-                    wordHistoryVBox.getChildren().add(0, wordHistory);
                 }
             }
             else if (line.length() >= newWord.length()){
@@ -228,6 +191,84 @@ public class BoggleBoardController {
         visited[i][j] = false;
     }
 
+    void printSolver() {
+        for (String newWord: AIusedWords) {
+            boolean wordFound = false;
+            for (String usedWord : usedWords) {
+                if (newWord.equalsIgnoreCase(usedWord)) {
+                    wordFound = true;
+                }
+            }
+            if (!wordFound) {
+                HBox wordHistory = new HBox();
+                Label wordLabel = new Label(newWord);
+                Label wordPointsLabel = new Label();
+                wordHistory.setMinSize(181, Region.USE_COMPUTED_SIZE);
+                wordHistory.setPrefSize(194, 20);
+                wordHistory.setMaxSize(Region.USE_PREF_SIZE, Region.USE_COMPUTED_SIZE);
+                wordLabel.setTranslateX(5);
+                wordLabel.setMinSize(155, Region.USE_COMPUTED_SIZE);
+                wordLabel.setPrefSize(155, 20);
+                wordLabel.setMaxSize(155, Region.USE_COMPUTED_SIZE);
+                wordLabel.setStyle(colorAIWords);
+                wordPointsLabel.setMinSize(20, Region.USE_COMPUTED_SIZE);
+                wordPointsLabel.setPrefSize(32, 20);
+                wordPointsLabel.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+                wordPointsLabel.setStyle(colorAIWords);
+
+                switch (newWord.length()) {
+                    case 0:
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        maxPoints++;
+                        wordPointsLabel.setText("+1");
+                        break;
+                    case 5:
+                        maxPoints += 2;
+                        wordPointsLabel.setText("+2");
+                        break;
+                    case 6:
+                        maxPoints += 3;
+                        wordPointsLabel.setText("+3");
+                        break;
+                    case 7:
+                        maxPoints += 5;
+                        wordPointsLabel.setText("+5");
+                        break;
+                    default:
+                        maxPoints += 11;
+                        wordPointsLabel.setText("+11");
+                        break;
+                }
+
+                wordHistory.getChildren().addAll(wordLabel, wordPointsLabel);
+                wordHistoryVBox.getChildren().add(0, wordHistory);
+            }
+        }
+    }
+
+    void handleFindWords() {
+        String[][] boggleBoard = new String[4][4];
+        int i = 0;
+        int j = 0;
+        for (Node node: gridPane.getChildren()) {
+            Label letter = (Label)node;
+            boggleBoard[i][j] = letter.getText();
+            if (i < 4) {
+                if (j < 3) {
+                    j++;
+                } else {
+                    j = 0;
+                    i++;
+                }
+            }
+        }
+        findWords(boggleBoard);
+    }
+
     @FXML
     void handleAI(ActionEvent event) {
         //this is just the button, it will run the AI function initially
@@ -238,22 +279,10 @@ public class BoggleBoardController {
             e.printStackTrace();
         }
         Platform.runLater(() -> {
-            String[][] boggleBoard = new String[4][4];
-            int i = 0;
-            int j = 0;
-            for (Node node: gridPane.getChildren()) {
-                Label letter = (Label)node;
-                boggleBoard[i][j] = letter.getText();
-                if (i < 4) {
-                    if (j < 3) {
-                        j++;
-                    } else {
-                        j = 0;
-                        i++;
-                    }
-                }
+            if (!typeWords) {
+                handleFindWords();
             }
-            findWords(boggleBoard);
+            printSolver();
             notificationLabel.setText("All words found. Maximum possible score: " + maxPoints + "     Your score: " + points);
         });
     }
@@ -419,7 +448,12 @@ public class BoggleBoardController {
 //            word += label.getText();
 //        }
         boolean wordFound = false;
-        for (String line: dict) {
+
+        ArrayList<String> testWords = dict;
+        if(typeWords) {
+            testWords = AIusedWords;
+        }
+        for (String line: testWords) {
             if (currentWord.equalsIgnoreCase(line)) {
                 for (String newWord: usedWords) {
                     if (currentWord.equalsIgnoreCase(newWord)) {
@@ -504,7 +538,25 @@ public class BoggleBoardController {
             wordHistoryVBox.getChildren().clear();
             notificationLabel.setStyle(colorNotification);
             notificationLabel.setText("New game! Game reset!");
+            if (changeSetting) {
+                if (typeWords) {
+                    textWordGuess.setVisible(true);
+                } else {
+                    textWordGuess.setVisible(false);
+                }
+            }
         }
+        else if (changeSetting) {
+            if (typeWords) {
+                typeWords = false;
+                radioTypeWords.setSelected(false);
+            }
+            else {
+                typeWords = true;
+                radioTypeWords.setSelected(true);
+            }
+        }
+        changeSetting = false;
     }
 
     @FXML
@@ -558,8 +610,30 @@ public class BoggleBoardController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText(null);
-        alert.setContentText("Java Boggle v1.1\n\nWritten April 2016 by Jordan Wells and Sam Murray.\nLast updated 25 April 2016");
+        alert.setContentText("Java Boggle v1.3\n\nWritten April 2016 by Jordan Wells and Sam Murray.\nLast updated 27 April 2016");
         alert.showAndWait();
+    }
+
+    @FXML
+    public void handleTypeWords(ActionEvent event) {
+        changeSetting = true;
+        if (radioTypeWords.isSelected()) {
+            typeWords = true;
+        }
+        else {
+            typeWords = false;
+        }
+        handleNewGame(event);
+    }
+
+    @FXML
+    public void handleGuessWord(ActionEvent event) {
+//        input_search.textProperty().addListener((ov, oldValue, newValue) -> {
+            textWordGuess.setText(textWordGuess.getText().toUpperCase());
+//        });
+        currentWord = textWordGuess.getText();
+        handleSaveWord(event);
+        textWordGuess.setText("");
     }
 
     @FXML
@@ -617,6 +691,11 @@ public class BoggleBoardController {
         if(newDict) {
             dict.clear();
             addToDict();
+        }
+
+        //TODO
+        if (typeWords) {
+            handleFindWords();
         }
     }
 }
