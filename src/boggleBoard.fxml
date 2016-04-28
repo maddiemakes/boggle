@@ -71,7 +71,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle fx:id="background" arcHeight="5.0" fill="BLACK" height="515.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
+            <Rectangle fx:id="background" arcHeight="5.0" fill="BLACK" height="530.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
                <effect>
                   <ImageInput>
                      <source>

@@ -137,7 +137,7 @@ public class BoggleBoardController {
                 findWordsUtil(board, visited, i, j, newWord);
             }
         }
-        maxPoints += points;
+//        maxPoints += points;
     }
 
     void findWordsUtil(String[][] board, boolean[][] visited, int i, int j, String newWord) {
@@ -283,6 +283,7 @@ public class BoggleBoardController {
                 handleFindWords();
             }
             printSolver();
+            maxPoints += points;
             notificationLabel.setText("All words found. Maximum possible score: " + maxPoints + "     Your score: " + points);
         });
     }

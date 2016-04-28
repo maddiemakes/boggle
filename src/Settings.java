@@ -23,9 +23,6 @@ public class Settings {
         add("GILRUW");
     }};
 
-    //TODO
-//    public static InputStream dictFile = getClass().getResourceAsStream("/dictionaries/bogwords.txt");
-
     //Colors
     public static String woodColorClicked = "-fx-background-color:rgba(40,80,255,1); -fx-opacity:0.9;";
     public static String woodColorCanClick = "-fx-background-color:rgba(90,255,110,1); -fx-opacity:0.8;";
