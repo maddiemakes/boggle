@@ -7,4 +7,4 @@ Features:
 - Solver (see how many words you missed)
 - Visually appealing (elegant and modern theme)
 
-Written by Jordan Wells and Samuel Murray, April 2016
+Written by Madison Wells and Samuel Murray, April 2016
